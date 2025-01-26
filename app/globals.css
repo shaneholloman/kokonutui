@@ -178,12 +178,13 @@ a[href="/docs/components/action-search-bar"]::after {
 }
 
 
-a[href="/docs/blocks/ai-card-generation"] {
+/* Blocks, update only if id is different than browse-blocks-button*/
+a[href="/docs/blocks/ai-card-generation"]:not(#browse-blocks-button) {
   position: relative;
   padding-right: 2.5rem;
 }
 
-a[href="/docs/blocks/ai-card-generation"]::after {
+a[href="/docs/blocks/ai-card-generation"]:not(#browse-blocks-button)::after {
   content: "Beta";
   position: absolute;
   right: 0.2rem;
