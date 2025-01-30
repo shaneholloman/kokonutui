@@ -11,7 +11,7 @@ import {
     Lock,
     Unlock,
 } from "lucide-react";
-import { useState, useRef, useCallback } from "react";
+import { useState, useRef, useCallback, type RefObject } from "react";
 import { Textarea } from "@/components/ui/textarea";
 import { cn } from "@/lib/utils";
 import { useAutoResizeTextarea } from "@/hooks/use-auto-resize-textarea";
@@ -70,7 +70,7 @@ export default function AIInput_10() {
         []
     );
 
-    useClickOutside(menuRef, () => {
+    useClickOutside(menuRef as RefObject<HTMLElement>   , () => {
         if (state.isMenuOpen) updateState({ isMenuOpen: false });
         if (state.isModelMenuOpen) updateState({ isModelMenuOpen: false });
     });
