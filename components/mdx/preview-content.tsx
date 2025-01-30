@@ -6,6 +6,7 @@ import {
     useState,
     useTransition,
     useRef,
+    type RefObject,
 } from "react";
 import { Button } from "@/components/ui/button";
 import { ArrowUpRight, Copy, Check, CheckCheck, Terminal } from "lucide-react";
@@ -131,9 +132,17 @@ export default function PreviewContent({
     return (
         <>
             {isTerminalCopied && (
-                <SuccessParticles buttonRef={terminalButtonRef} />
+                <SuccessParticles
+                    buttonRef={
+                        terminalButtonRef as RefObject<HTMLButtonElement>
+                    }
+                />
             )}
-            {isCopied && <SuccessParticles buttonRef={copyButtonRef} />}
+            {isCopied && (
+                <SuccessParticles
+                    buttonRef={copyButtonRef as RefObject<HTMLButtonElement>}
+                />
+            )}
 
             <div
                 className={cn("relative mt-4", "rounded-xl p-3")}
