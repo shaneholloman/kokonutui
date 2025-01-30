@@ -27,13 +27,11 @@ const FileDisplay = ({ fileName, onClear }: FileDisplayProps) => (
     </div>
 );
 
-const MIN_HEIGHT = 56;
-
 export default function AIInput_09() {
     const [inputValue, setInputValue] = useState<string>("");
     const [isMenuOpen, setIsMenuOpen] = useState(false);
     const { textareaRef, adjustHeight } = useAutoResizeTextarea({
-        minHeight: MIN_HEIGHT,
+        minHeight: 56,
         maxHeight: 200,
     });
     const { fileName, fileInputRef, handleFileSelect, clearFile } =
@@ -120,7 +118,7 @@ export default function AIInput_09() {
                         placeholder="Ask me anything!"
                         className={cn(
                             "max-w-xl bg-black/5 dark:bg-white/5 w-full rounded-3xl pl-14 pr-10 py-4 placeholder:text-black/70 dark:placeholder:text-white/70 border-none ring-black/30 dark:ring-white/30 text-black dark:text-white resize-none text-wrap",
-                            `min-h-[${MIN_HEIGHT}px]`
+                            "min-h-[56px]"
                         )}
                         ref={textareaRef}
                         value={inputValue}

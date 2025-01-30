@@ -24,8 +24,6 @@ const AI_MODELS = [
     { name: "Claude", description: "Yes, the best for coding" },
 ].map((model) => ({ ...model, icon: <Brain className="w-4 h-4" /> }));
 
-const MIN_HEIGHT = 40;
-
 const FileDisplay = ({
     fileName,
     onClear,
@@ -59,7 +57,7 @@ export default function AIInput_10() {
     });
 
     const { textareaRef, adjustHeight } = useAutoResizeTextarea({
-        minHeight: MIN_HEIGHT,
+        minHeight: 40,
         maxHeight: 200,
     });
     const { fileName, fileInputRef, handleFileSelect, clearFile } =
@@ -223,7 +221,7 @@ export default function AIInput_10() {
                             placeholder="Type your message..."
                             className={cn(
                                 "w-full rounded-xl pl-14 pr-10 border-none resize-none bg-transparent dark:text-white placeholder:text-black/70 dark:placeholder:text-white/70",
-                                `min-h-[${MIN_HEIGHT}px]`
+                                "min-h-[40px]"
                             )}
                             onKeyDown={handleKeyDown}
                             onChange={(e) => {

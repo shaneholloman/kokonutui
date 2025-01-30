@@ -156,7 +156,7 @@ export default function Input_02({
                         "text-base sm:text-sm",
                         "text-zinc-900 dark:text-zinc-100",
                         "placeholder:text-zinc-500 dark:placeholder:text-zinc-400",
-                        "focus:outline-none"
+                        "focus:outline-hidden"
                     )}
                 />
 
