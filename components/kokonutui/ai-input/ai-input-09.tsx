@@ -1,7 +1,7 @@
 "use client";
 
 import { Plus, Mic, File, Camera, X, ArrowRight } from "lucide-react";
-import { useState, useRef } from "react";
+import { useState, useRef, type RefObject } from "react";
 import { Textarea } from "@/components/ui/textarea";
 import { cn } from "@/lib/utils";
 import { useAutoResizeTextarea } from "@/hooks/use-auto-resize-textarea";
@@ -39,7 +39,7 @@ export default function AIInput_09() {
 
     const menuRef = useRef<HTMLDivElement>(null);
 
-    useClickOutside(menuRef, () => {
+    useClickOutside(menuRef as RefObject<HTMLElement>, () => {
         if (isMenuOpen) setIsMenuOpen(false);
     });
 
