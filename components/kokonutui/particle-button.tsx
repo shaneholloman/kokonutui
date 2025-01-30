@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useRef } from "react";
+import { useState, useRef, type RefObject } from "react";
 import { Button } from "@/components/ui/button";
 import { motion, AnimatePresence } from "motion/react";
 import { cn } from "@/lib/utils";
@@ -72,7 +72,11 @@ export default function ParticleButton({
 
     return (
         <>
-            {showParticles && <SuccessParticles buttonRef={buttonRef} />}
+            {showParticles && (
+                <SuccessParticles
+                    buttonRef={buttonRef as RefObject<HTMLButtonElement>}
+                />
+            )}
             <Button
                 ref={buttonRef}
                 onClick={handleClick}
