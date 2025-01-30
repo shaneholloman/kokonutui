@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useRef, useCallback } from "react";
+import { useState, useRef, useCallback, type RefObject } from "react";
 import { Command } from "cmdk";
 import { AnimatePresence, motion } from "motion/react";
 import { MessageSquare, Wand2, Search, SendHorizontal } from "lucide-react";
@@ -38,7 +38,7 @@ export default function AIInput_16() {
     const containerRef = useRef<HTMLDivElement>(null);
     const [inputValue, setInputValue] = useState("");
 
-    useClickOutside(containerRef, () => {
+    useClickOutside(containerRef as RefObject<HTMLElement>, () => {
         if (isOpen) setIsOpen(false);
     });
 
