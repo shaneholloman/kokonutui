@@ -7,13 +7,13 @@ interface Device {
     status: "on" | "off";
     value?: number;
     unit?: string;
-    icon: JSX.Element;
+    icon: React.ReactNode;
 }
 
 interface Scene {
     id: string;
     name: string;
-    icon: JSX.Element;
+    icon: React.ReactNode;
     isActive: boolean;
 }
 
