@@ -59,7 +59,6 @@
         "@types/node": "^20",
         "@types/react": "^19.0.0",
         "@types/react-dom": "^19.0.0",
-        "postcss": "^8.5.1",
         "typescript": "^5"
     },
     "optionalDependencies": {
