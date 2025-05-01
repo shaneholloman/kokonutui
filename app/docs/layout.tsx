@@ -40,7 +40,6 @@ export default function Layout({ children }: { children: ReactNode }) {
                             <path fill="#fff" d="m128 0 128 221.705H0z" />
                         </svg>
                         <svg
-                            alt="Vercel Logo"
                             className="block dark:hidden"
                             viewBox="0 0 256 222"
                             width="32"
