@@ -3,8 +3,6 @@ import { DocsLayout } from "fumadocs-ui/layouts/notebook";
 import type { ReactNode } from "react";
 import { baseOptions } from "../layout.config";
 import type { Metadata } from "next";
-import Link from "next/link";
-import { ArrowUpRight } from "lucide-react";
 
 export const metadata: Metadata = {
     title: {
@@ -37,7 +35,6 @@ export default function Layout({ children }: { children: ReactNode }) {
                             width="32"
                             height="32"
                             xmlns="http://www.w3.org/2000/svg"
-                            preserveAspectRatio="xMidYMid"
                         >
                             <title>Vercel Logo</title>
                             <path fill="#fff" d="m128 0 128 221.705H0z" />
@@ -49,7 +46,6 @@ export default function Layout({ children }: { children: ReactNode }) {
                             width="32"
                             height="32"
                             xmlns="http://www.w3.org/2000/svg"
-                            preserveAspectRatio="xMidYMid"
                         >
                             <title>Vercel Logo</title>
                             <path fill="#000" d="m128 0 128 221.705H0z" />
