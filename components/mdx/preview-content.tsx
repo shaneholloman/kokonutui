@@ -179,21 +179,21 @@ export default function PreviewContent({
             )}
 
             <div
-                className={cn("relative mt-4", "rounded-xl p-3")}
+                className={cn("relative mt-2", "rounded-xl p-1")}
                 onMouseEnter={() => setIsHovered(true)}
                 onMouseLeave={() => setIsHovered(false)}
             >
-                <div className="relative flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
-                    <a
+                <div className="relative flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-end">
+                    {/* <a
                         href={`${prePath}/preview/${link}`}
                         target="_blank"
                         rel="noreferrer"
                         className={cn(
                             "flex items-center gap-2",
-                            "text-sm font-medium",
+                            "text-xs font-medium",
                             "text-zinc-800 dark:text-zinc-200",
                             "hover:text-zinc-600 dark:hover:text-zinc-400",
-                            "transition-all duration-200 no-underline group"
+                            "transition-all duration-200 no-underline group uppercase"
                         )}
                     >
                         Live Preview
@@ -203,7 +203,7 @@ export default function PreviewContent({
                                 "transition-transform duration-200 group-hover:rotate-12"
                             )}
                         />
-                    </a>
+                    </a> */}
 
                     <div className="flex items-center gap-2">
                         <OpenInV0Button name={openInV0()} />
@@ -222,7 +222,7 @@ export default function PreviewContent({
                                         "hover:text-white dark:hover:text-black",
                                         "transition-all duration-200",
                                         "group flex items-center gap-1",
-                                        "rounded-lg",
+                                        "rounded-md",
                                         "shadow-none"
                                     )}
                                 >
@@ -243,7 +243,7 @@ export default function PreviewContent({
                             </DropdownMenuTrigger>
                             <DropdownMenuContent
                                 align="end"
-                                className="-ml-3 w-[190px] bg-black dark:bg-white text-white rounded-lg dark:text-black border border-neutral-700 dark:border-neutral-300"
+                                className="-ml-3 w-[190px] bg-black dark:bg-white text-white rounded-md dark:text-black border border-neutral-700 dark:border-neutral-300"
                             >
                                 <DropdownMenuItem
                                     onSelect={() => {
@@ -315,7 +315,7 @@ export default function PreviewContent({
                                         "hover:text-white dark:hover:text-black",
                                         "transition-all duration-200",
                                         "group flex items-center gap-1",
-                                        "rounded-lg",
+                                        "rounded-md",
                                         "shadow-none"
                                     )}
                                 >

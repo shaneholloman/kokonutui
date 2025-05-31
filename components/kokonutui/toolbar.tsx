@@ -4,14 +4,18 @@ import * as React from "react";
 import { AnimatePresence, motion } from "motion/react";
 import { cn } from "@/lib/utils";
 import {
-    Filter,
-    Settings,
-    Download,
+    Layers,
+    SlidersHorizontal,
+    FileDown,
     Share2,
-    type LucideIcon,
-    User,
     Bell,
-    Sun,
+    CircleUserRound,
+    Palette,
+    MousePointer2,
+    Move,
+    Shapes,
+    Frame,
+    type LucideIcon,
     Edit2,
     Lock,
 } from "lucide-react";
@@ -75,7 +79,7 @@ export function Toolbar({
     activeColor = "text-primary",
     onSearch,
 }: ToolbarProps) {
-    const [selected, setSelected] = React.useState<string | null>("filter");
+    const [selected, setSelected] = React.useState<string | null>("select");
     const [isToggled, setIsToggled] = React.useState(false);
     const [activeNotification, setActiveNotification] = React.useState<
         string | null
@@ -83,13 +87,17 @@ export function Toolbar({
     const outsideClickRef = React.useRef(null);
 
     const toolbarItems: ToolbarItem[] = [
-        { id: "filter", title: "Filter", icon: Filter },
-        { id: "settings", title: "Settings", icon: Settings },
-        { id: "download", title: "Download", icon: Download },
+        { id: "select", title: "Select", icon: MousePointer2 },
+        { id: "move", title: "Move", icon: Move },
+        { id: "shapes", title: "Shapes", icon: Shapes },
+        { id: "layers", title: "Layers", icon: Layers },
+        { id: "frame", title: "Frame", icon: Frame },
+        { id: "properties", title: "Properties", icon: SlidersHorizontal },
+        { id: "export", title: "Export", icon: FileDown },
         { id: "share", title: "Share", icon: Share2 },
         { id: "notifications", title: "Notifications", icon: Bell },
-        { id: "profile", title: "Profile", icon: User },
-        { id: "theme", title: "Theme", icon: Sun },
+        { id: "profile", title: "Profile", icon: CircleUserRound },
+        { id: "appearance", title: "Appearance", icon: Palette },
     ];
 
     const handleItemClick = (itemId: string) => {
@@ -184,16 +192,25 @@ export function Toolbar({
                         whileHover={{ scale: 1.02 }}
                         whileTap={{ scale: 0.98 }}
                         onClick={() => setIsToggled(!isToggled)}
-                        className="flex items-center gap-2 px-4 py-2
-                            bg-primary text-primary-foreground
-                            rounded-xl 
-                            border border-primary/30
-                            shadow-sm 
-                            transition-all duration-200
-                            hover:shadow-md 
-                            hover:bg-primary/90
-                            hover:border-primary/40
-                            active:border-primary/50"
+                        className={cn(
+                            "flex items-center gap-2 px-4 py-2",
+                            "rounded-xl border shadow-sm transition-all duration-200",
+                            "hover:shadow-md active:border-primary/50",
+                            isToggled
+                                ? [
+                                      "bg-[#1F9CFE] text-white",
+                                      "border-[#1F9CFE]/30",
+                                      "hover:bg-[#1F9CFE]/90",
+                                      "hover:border-[#1F9CFE]/40",
+                                  ]
+                                : [
+                                      "bg-background text-muted-foreground",
+                                      "border-border/30",
+                                      "hover:bg-muted",
+                                      "hover:text-foreground",
+                                      "hover:border-border/40",
+                                  ]
+                        )}
                     >
                         {isToggled ? (
                             <Edit2 className="w-3.5 h-3.5" />

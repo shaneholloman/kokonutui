@@ -1,251 +1,172 @@
 "use client";
 
-import {
-    Activity,
-    ArrowUpRight,
-    Plus,
-    Target,
-    CheckCircle2,
-} from "lucide-react";
-import { useState } from "react";
+import { motion } from "framer-motion";
 import { cn } from "@/lib/utils";
 
-export interface Metric {
+interface ActivityData {
     label: string;
-    value: string;
-    trend: number;
-    unit?: "cal" | "min" | "hrs";
+    value: number;
+    color: string;
+    size: number;
+    current: number;
+    target: number;
+    unit: string;
 }
 
-export interface Goal {
-    id: string;
-    title: string;
-    isCompleted: boolean;
+interface CircleProgressProps {
+    data: ActivityData;
+    index: number;
 }
 
-interface ActivityCardProps {
-    category?: string;
-    title?: string;
-    metrics?: Metric[];
-    dailyGoals?: Goal[];
-    onAddGoal?: () => void;
-    onToggleGoal?: (goalId: string) => void;
-    onViewDetails?: () => void;
-    className?: string;
-}
+const activities: ActivityData[] = [
+    {
+        label: "MOVE",
+        value: 85,
+        color: "#FF2D55",
+        size: 200,
+        current: 479,
+        target: 800,
+        unit: "CAL",
+    },
+    {
+        label: "EXERCISE",
+        value: 60,
+        color: "#A3F900",
+        size: 160,
+        current: 24,
+        target: 30,
+        unit: "MIN",
+    },
+    {
+        label: "STAND",
+        value: 30,
+        color: "#04C7DD",
+        size: 120,
+        current: 6,
+        target: 12,
+        unit: "HR",
+    },
+];
 
-const METRIC_COLORS = {
-    Move: "#FF2D55",
-    Exercise: "#2CD758",
-    Stand: "#007AFF",
-} as const;
+const CircleProgress = ({ data, index }: CircleProgressProps) => {
+    const strokeWidth = 16;
+    const radius = (data.size - strokeWidth) / 2;
+    const circumference = radius * 2 * Math.PI;
+    const progress = ((100 - data.value) / 100) * circumference;
 
-function CardDetails({
-    category = "Activity",
-    title = "Today's Progress",
-    metrics = [],
-    dailyGoals = [],
-    onAddGoal,
-    onToggleGoal,
-    onViewDetails,
-    className,
-}: ActivityCardProps) {
-    const [isHovering, setIsHovering] = useState<string | null>(null);
+    return (
+        <motion.div
+            className="absolute inset-0 flex items-center justify-center"
+            initial={{ opacity: 0, scale: 0.8 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.5, delay: index * 0.2 }}
+        >
+            <div className="relative">
+                <svg
+                    width={data.size}
+                    height={data.size}
+                    viewBox={`0 0 ${data.size} ${data.size}`}
+                    className="transform -rotate-90"
+                    aria-label={`${data.label} Activity Progress - ${data.value}%`}
+                >
+                    <title>{`${data.label} Activity Progress - ${data.value}%`}</title>
+                    {/* Background circle */}
+                    <circle
+                        cx={data.size / 2}
+                        cy={data.size / 2}
+                        r={radius}
+                        fill="none"
+                        stroke="currentColor"
+                        strokeWidth={strokeWidth}
+                        className="text-zinc-100 dark:text-zinc-800"
+                    />
 
-    const handleGoalToggle = (goalId: string) => {
-        onToggleGoal?.(goalId);
-    };
+                    {/* Progress circle */}
+                    <motion.circle
+                        cx={data.size / 2}
+                        cy={data.size / 2}
+                        r={radius}
+                        fill="none"
+                        stroke={data.color}
+                        strokeWidth={strokeWidth}
+                        strokeDasharray={circumference}
+                        initial={{ strokeDashoffset: circumference }}
+                        animate={{ strokeDashoffset: progress }}
+                        transition={{
+                            duration: 1.5,
+                            delay: index * 0.2,
+                            ease: "easeInOut",
+                        }}
+                        strokeLinecap="round"
+                        style={{
+                            filter: "drop-shadow(0 0 4px rgba(0,0,0,0.2))",
+                        }}
+                    />
+                </svg>
+            </div>
+        </motion.div>
+    );
+};
 
+const DetailedActivityInfo = () => {
+    return (
+        <motion.div
+            className="flex flex-col gap-6 ml-8"
+            initial={{ opacity: 0, x: 20 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.5, delay: 0.3 }}
+        >
+            {activities.map((activity) => (
+                <motion.div key={activity.label} className="flex flex-col">
+                    <span className="text-sm font-medium text-zinc-600 dark:text-zinc-400">
+                        {activity.label}
+                    </span>
+                    <span
+                        className="text-2xl font-semibold"
+                        style={{ color: activity.color }}
+                    >
+                        {activity.current}/{activity.target}
+                        <span className="text-base ml-1 text-zinc-600 dark:text-zinc-400">
+                            {activity.unit}
+                        </span>
+                    </span>
+                </motion.div>
+            ))}
+        </motion.div>
+    );
+};
+
+export default function Card05({ className }: { className?: string }) {
     return (
         <div
             className={cn(
-                "relative h-full rounded-3xl p-6",
-                "bg-white dark:bg-black/5",
-                "border border-zinc-200 dark:border-zinc-800",
-                "hover:border-zinc-300 dark:hover:border-zinc-700",
-                "transition-all duration-300",
+                "relative w-full max-w-3xl mx-auto p-8 rounded-3xl",
+                "text-zinc-900 dark:text-white",
                 className
             )}
         >
-            {/* Header */}
-            <div className="flex items-center gap-3 mb-6">
-                <div className="p-2 rounded-full bg-zinc-100 dark:bg-zinc-800/50">
-                    <Activity className="w-5 h-5 text-[#FF2D55]" />
-                </div>
-                <div>
-                    <h3 className="text-lg font-semibold text-zinc-900 dark:text-white">
-                        {title}
-                    </h3>
-                    <p className="text-sm text-zinc-500 dark:text-zinc-400">
-                        {category}
-                    </p>
-                </div>
-            </div>
+            <div className="flex flex-col items-center gap-8">
+                <motion.h2
+                    className="text-2xl font-medium text-zinc-900 dark:text-white"
+                    initial={{ opacity: 0, y: -20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.5 }}
+                >
+                    Activity Rings
+                </motion.h2>
 
-            <div className="grid grid-cols-3 gap-4">
-                {metrics.map((metric, index) => (
-                    <div
-                        key={metric.label}
-                        className="relative flex flex-col items-center"
-                        onMouseEnter={() => setIsHovering(metric.label)}
-                        onMouseLeave={() => setIsHovering(null)}
-                    >
-                        <div className="relative w-24 h-24">
-                            <div className="absolute inset-0 rounded-full border-4 border-zinc-200 dark:border-zinc-800/50" />
-                            <div
-                                className={cn(
-                                    "absolute inset-0 rounded-full border-4 transition-all duration-500",
-                                    isHovering === metric.label && "scale-105"
-                                )}
-                                style={{
-                                    borderColor:
-                                        METRIC_COLORS[
-                                            metric.label as keyof typeof METRIC_COLORS
-                                        ],
-                                    clipPath: `polygon(0 0, 100% 0, 100% ${metric.trend}%, 0 ${metric.trend}%)`,
-                                }}
+                <div className="flex items-center">
+                    <div className="relative w-[180px] h-[180px]">
+                        {activities.map((activity, index) => (
+                            <CircleProgress
+                                key={activity.label}
+                                data={activity}
+                                index={index}
                             />
-                            <div className="absolute inset-0 flex flex-col items-center justify-center">
-                                <span className="text-xl font-bold text-zinc-900 dark:text-white">
-                                    {metric.value}
-                                </span>
-                                <span className="text-xs text-zinc-500 dark:text-zinc-400">
-                                    {metric.unit}
-                                </span>
-                            </div>
-                        </div>
-                        <span className="mt-3 text-sm font-medium text-zinc-700 dark:text-zinc-300">
-                            {metric.label}
-                        </span>
-                        <span className="text-xs text-zinc-500">
-                            {metric.trend}%
-                        </span>
-                    </div>
-                ))}
-            </div>
-
-            <div className="mt-8 space-y-6">
-                <div className="h-px bg-linear-to-r from-transparent via-zinc-200 dark:via-zinc-800 to-transparent" />
-
-                <div className="space-y-4">
-                    <div className="flex items-center justify-between">
-                        <h4 className="flex items-center gap-2 text-sm font-medium text-zinc-700 dark:text-zinc-300">
-                            <Target className="w-4 h-4" />
-                            Today's Goals
-                        </h4>
-                        <button
-                            type="button"
-                            onClick={onAddGoal}
-                            className="p-1.5 rounded-full hover:bg-zinc-100 dark:hover:bg-zinc-800 transition-colors"
-                        >
-                            <Plus className="w-4 h-4 text-zinc-500 dark:text-zinc-400" />
-                        </button>
-                    </div>
-
-                    <div className="space-y-2">
-                        {dailyGoals.map((goal) => (
-                            <button
-                                type="button"
-                                key={goal.id}
-                                onClick={() => handleGoalToggle(goal.id)}
-                                className={cn(
-                                    "w-full flex items-center gap-3 p-3 rounded-xl",
-                                    "bg-zinc-50 dark:bg-zinc-900/50",
-                                    "border border-zinc-200/50 dark:border-zinc-800/50",
-                                    "hover:border-zinc-300/50 dark:hover:border-zinc-700/50",
-                                    "transition-all"
-                                )}
-                            >
-                                <CheckCircle2
-                                    className={cn(
-                                        "w-5 h-5",
-                                        goal.isCompleted
-                                            ? "text-emerald-500"
-                                            : "text-zinc-400 dark:text-zinc-600"
-                                    )}
-                                />
-                                <span
-                                    className={cn(
-                                        "text-sm text-left",
-                                        goal.isCompleted
-                                            ? "text-zinc-500 dark:text-zinc-400 line-through"
-                                            : "text-zinc-700 dark:text-zinc-300"
-                                    )}
-                                >
-                                    {goal.title}
-                                </span>
-                            </button>
                         ))}
                     </div>
+                    <DetailedActivityInfo />
                 </div>
-
-                <div className="pt-4 border-t border-zinc-200 dark:border-zinc-800">
-                    <button
-                        type="button"
-                        onClick={onViewDetails}
-                        className="inline-flex items-center gap-2 text-sm font-medium
-              text-zinc-600 hover:text-zinc-900 
-              dark:text-zinc-400 dark:hover:text-white
-              transition-colors duration-200"
-                    >
-                        View Activity Details
-                        <ArrowUpRight className="w-4 h-4" />
-                    </button>
-                </div>
-            </div>
-        </div>
-    );
-}
-
-const INITIAL_METRICS: Metric[] = [
-    { label: "Move", value: "420", trend: 85, unit: "cal" },
-    { label: "Exercise", value: "35", trend: 70, unit: "min" },
-    { label: "Stand", value: "10", trend: 83, unit: "hrs" },
-];
-
-const INITIAL_GOALS: Goal[] = [
-    { id: "1", title: "30min Morning Yoga", isCompleted: true },
-    { id: "2", title: "10k Steps", isCompleted: false },
-    { id: "3", title: "Drink 2L Water", isCompleted: true },
-];
-
-export default function Card05() {
-    const [goals, setGoals] = useState<Goal[]>(INITIAL_GOALS);
-    const [metrics, setMetrics] = useState<Metric[]>(INITIAL_METRICS);
-
-    const handleToggleGoal = (goalId: string) => {
-        setGoals((prev) =>
-            prev.map((goal) =>
-                goal.id === goalId
-                    ? { ...goal, isCompleted: !goal.isCompleted }
-                    : goal
-            )
-        );
-    };
-
-    const handleAddGoal = () => {
-        const newGoal: Goal = {
-            id: `goal-${goals.length + 1}`,
-            title: `New Goal ${goals.length + 1}`,
-            isCompleted: false,
-        };
-        setGoals((prev) => [...prev, newGoal]);
-    };
-
-    const handleViewDetails = () => {
-        console.log("Viewing details");
-    };
-
-    return (
-        <div className="p-8">
-            <div className="max-w-md mx-auto">
-                <CardDetails
-                    metrics={metrics}
-                    dailyGoals={goals}
-                    onAddGoal={handleAddGoal}
-                    onToggleGoal={handleToggleGoal}
-                    onViewDetails={handleViewDetails}
-                />
             </div>
         </div>
     );

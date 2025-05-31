@@ -51,6 +51,15 @@ const collections: Card08Props[] = [
             variant: "orange",
         },
     },
+    {
+        image: "https://www.lummi.ai/api/pro/image/a06ede0d-63fb-4d99-be4c-9ba0840cf779?asset=original&cb=1nK52A&auto=format&w=1500",
+        title: "Festive",
+        subtitle: "Colorful for the festive season",
+        badge: {
+            text: "New",
+            variant: "orange",
+        },
+    },
 ];
 
 export default function CardGrid({

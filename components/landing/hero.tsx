@@ -4,21 +4,20 @@ import { BrowseComponentsButton } from "@/components/ui/browse-button";
 import FeatureBlock from "./feature-block";
 import { motion } from "motion/react";
 import Card08 from "../kokonutui/card/card-08";
-import Btn03 from "../kokonutui/button/btn-03";
-import Input09 from "../kokonutui/input/input-09";
 import Link from "next/link";
-import { Btn14 } from "../kokonutui/button/btn-14";
-import { BrowseBlocksButton } from "../ui/browse-blocks";
-import ActionSearchBar from "../kokonutui/action-search-bar";
+import { BrowseBlocksButton } from "@/components/ui/browse-blocks";
+import ActionSearchBar from "@/components/kokonutui/action-search-bar";
 import {
     PlaneTakeoff,
     BarChart2,
     Video,
     AudioLines,
     Globe,
-    Diamond,
 } from "lucide-react";
-import AIInput_04 from "../kokonutui/ai-input/ai-input-04";
+import AIInput_04 from "@/components/kokonutui/ai-input/ai-input-04";
+import GradientButton from "@/components/kokonutui/gradient-button";
+import AttractButton from "@/components/kokonutui/attract-button";
+import TeamSelector from "@/components/kokonutui/team-selector";
 
 interface Action {
     id: string;
@@ -164,13 +163,13 @@ export function HeroSection() {
                         </span>
                         <div className="w-full flex flex-col items-center justify-center gap-3">
                             <Link href="/docs/components/button">
-                                <Btn14
+                                <GradientButton
                                     label="Bring me"
                                     className=" w-42 py-5"
                                 />
                             </Link>
                             <Link href="/docs/components/button">
-                                <Btn03 className=" w-42 py-5" />
+                                <AttractButton />
                             </Link>
                         </div>
                     </div>
@@ -180,8 +179,8 @@ export function HeroSection() {
                         <span className="text-sm text-zinc-500 dark:text-zinc-400 block text-center mb-2">
                             Input
                         </span>
-                        <Link href="/docs/components/input">
-                            <Input09 />
+                        <Link href="/docs/components/team-selector">
+                            <TeamSelector />
                         </Link>
                     </div>
                 </motion.div>

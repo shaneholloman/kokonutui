@@ -1,6 +1,5 @@
 import { HeaderPro } from "@/components/landing/header-pro";
 import type { BaseLayoutProps } from "fumadocs-ui/layouts/shared";
-import { BookIcon, Sparkles } from "lucide-react";
 import Image from "next/image";
 
 export const baseOptions: BaseLayoutProps = {
@@ -28,10 +27,6 @@ export const baseOptions: BaseLayoutProps = {
         ),
     },
     links: [
-        // {
-        //     text: "Pricing",
-        //     url: "/pricing",
-        // },
         {
             text: "Templates",
             url: "https://kokonutui.pro/templates?utm_source=kokonutui.com&utm_medium=header",
