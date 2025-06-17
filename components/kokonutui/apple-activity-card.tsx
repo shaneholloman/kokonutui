@@ -169,8 +169,10 @@ const DetailedActivityInfo = () => {
 };
 
 export default function AppleActivityCard({
+    title = "Activity Rings",
     className,
 }: {
+    title?: string;
     className?: string;
 }) {
     return (
@@ -188,7 +190,7 @@ export default function AppleActivityCard({
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.5 }}
                 >
-                    Activity Rings
+                    {title}
                 </motion.h2>
 
                 <div className="flex items-center">

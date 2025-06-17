@@ -15,15 +15,7 @@ import {
     DropdownMenuItem,
     DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import {
-    ArrowUpRight,
-    Copy,
-    Check,
-    CheckCheck,
-    Terminal,
-    ChevronDown,
-    Code,
-} from "lucide-react";
+import { Check, CheckCheck, Terminal, ChevronDown, Code } from "lucide-react";
 import { copyComponent } from "@/lib/action";
 import { cn } from "@/lib/utils";
 import { OpenInV0Button } from "../open-in-v0-button";

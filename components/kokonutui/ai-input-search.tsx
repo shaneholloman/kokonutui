@@ -1,7 +1,7 @@
 "use client";
 
 import { Globe, Paperclip, Send } from "lucide-react";
-import { useState, useRef } from "react";
+import { useState } from "react";
 import { Textarea } from "@/components/ui/textarea";
 import { motion, AnimatePresence } from "motion/react";
 import { cn } from "@/lib/utils";

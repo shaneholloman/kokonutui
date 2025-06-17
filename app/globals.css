@@ -160,58 +160,98 @@ button {
     --sidebar-ring: 217.2 91.2% 59.8%;
   }
 
-  article {
-    padding-left: 0px !important;
+  @media (min-width: 1024px) {
+    article {
+      padding-left: 0px !important;
+    }
   }
 }
 
-a[href="/docs/components/hero-geometric"],
+
+/* Badge base styling */
 a[href="/docs/components/file-upload"],
-a[href="/docs/components/ai-prompt"] {
+a[href="/docs/templates/futur"] {
   position: relative;
   padding-right: 2.5rem;
 }
 
-a[href="/docs/components/hero-geometric"]::after,
+/* Special case for futur template with double badges */
+a[href="/docs/templates/futur"] {
+  padding-right: 5rem;
+}
+
+/* New badge styling */
 a[href="/docs/components/file-upload"]::after,
-a[href="/docs/components/ai-prompt"]::after {
+a[href="/docs/templates/futur"]::before {
   content: "New";
   position: absolute;
   right: 0.2rem;
   top: 50%;
   transform: translateY(-50%);
-  background-color: rgba(255, 165, 0, 0.2);
-  color: #ffa500;
+  background-color: rgba(34, 197, 94, 0.15);
+  color: rgb(21, 128, 61);
   padding: 0.05rem 0.2rem;
   border-radius: 0.25rem;
   font-size: 0.75rem;
   font-weight: 500;
-  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
-  border: 1px solid rgba(255, 255, 255, 0.2);
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+  border: 1px solid rgba(34, 197, 94, 0.2);
 }
 
-/* Blocks, update only if id is different than browse-blocks-button*/
-a[href="/docs/blocks/minimal-shop"]:not(#browse-blocks-button),
-a[href="/docs/blocks/dashboard"]:not(#browse-blocks-button) {
-  position: relative;
-  padding-right: 2.5rem;
-}
-
-a[href="/docs/blocks/minimal-shop"]:not(#browse-blocks-button)::after,
-a[href="/docs/blocks/dashboard"]:not(#browse-blocks-button)::after {
-  content: "New";
+/* Pro badge styling */
+a[href="/docs/templates/futur"]::after {
+  content: "Pro";
   position: absolute;
-  right: 0.2rem;
+  right: 2.7rem;
   top: 50%;
   transform: translateY(-50%);
-  background-color: rgba(255, 165, 0, 0.2);
-  color: #ffa500;
+  background: linear-gradient(135deg, rgba(251, 146, 60, 0.15) 0%, rgba(234, 88, 12, 0.15) 100%);
+  color: rgb(194, 65, 12);
   padding: 0.05rem 0.2rem;
   border-radius: 0.25rem;
   font-size: 0.75rem;
   font-weight: 500;
-  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+  border: 1px solid rgba(251, 146, 60, 0.3);
+  box-shadow: 0 1px 2px rgba(251, 146, 60, 0.1);
+}
+
+a[href="/docs/templates/postly"]::after,
+a[href="/docs/templates/startup"]::after,
+a[href="/docs/templates/ai"]::after {
+  content: "Pro";
+  position: absolute;
+  right: 0rem;
+  top: 50%;
+  transform: translateY(-50%);
+  background: linear-gradient(135deg, rgba(251, 146, 60, 0.15) 0%, rgba(234, 88, 12, 0.15) 100%);
+  color: rgb(194, 65, 12);
+  padding: 0.05rem 0.2rem;
+  border-radius: 0.25rem;
+  font-size: 0.75rem;
+  font-weight: 500;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+  border: 1px solid rgba(251, 146, 60, 0.3);
+  box-shadow: 0 1px 2px rgba(251, 146, 60, 0.1);
+}
+
+
+/* Dark mode adjustments */
+.dark a[href="/docs/components/file-upload"]::after,
+.dark a[href="/docs/templates/futur"]::before {
+  background-color: rgba(52, 211, 153, 0.2);
+  color: rgb(16, 185, 129);
   border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.dark a[href="/docs/templates/futur"]::after,
+.dark a[href="/docs/templates/postly"]::after,
+.dark a[href="/docs/templates/startup"]::after,
+.dark a[href="/docs/templates/ai"]::after {
+  background-color: rgba(255, 165, 0, 0.2);
+  color: #ffa500;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
 }
 
 :root {
@@ -245,4 +285,12 @@ a[href="/docs/blocks/dashboard"]:not(#browse-blocks-button)::after {
   --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
   --color-sidebar-border: var(--sidebar-border);
   --color-sidebar-ring: var(--sidebar-ring);
+}
+
+[role="dialog"] {
+  margin-bottom: 20px;
+}
+
+[data-vaul-drawer][data-vaul-drawer-direction="bottom"]::after {
+  height: 0px !important;
 }

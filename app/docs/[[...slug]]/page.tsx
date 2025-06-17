@@ -9,6 +9,8 @@ import { notFound } from "next/navigation";
 import defaultMdxComponents from "fumadocs-ui/mdx";
 import { Preview } from "@/components/mdx/preview";
 import { PreviewClient } from "@/components/mdx/preview-client";
+import PreviewTemplate from "@/components/mdx/preview-template";
+import WhatIncluded from "@/components/mdx/what-included";
 
 export default async function Page(props: {
     params: Promise<{ slug?: string[] }>;
@@ -34,6 +36,8 @@ export default async function Page(props: {
                         ...defaultMdxComponents,
                         Preview,
                         PreviewClient,
+                        PreviewTemplate,
+                        WhatIncluded,
                     }}
                 />
             </DocsBody>

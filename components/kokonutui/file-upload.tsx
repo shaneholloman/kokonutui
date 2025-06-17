@@ -315,111 +315,15 @@ const UploadingAnimation = ({ progress }: { progress: number }) => (
     </div>
 );
 
-const ErrorIllustration = () => (
-    <div className="relative w-16 h-16">
-        <svg
-            viewBox="0 0 100 100"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-            className="w-full h-full"
-            aria-label="Error illustration"
-        >
-            <title>Error State Illustration</title>
-            {/* Background circle with warning pattern */}
-            <circle
-                cx="50"
-                cy="50"
-                r="45"
-                className="stroke-red-200 dark:stroke-red-800/50"
-                strokeWidth="2"
-                strokeDasharray="8 8"
-            >
-                <animateTransform
-                    attributeName="transform"
-                    type="rotate"
-                    from="0 50 50"
-                    to="-360 50 50"
-                    dur="60s"
-                    repeatCount="indefinite"
-                />
-            </circle>
-
-            {/* Error document */}
-            <g className="transform translate-y-1">
-                <path
-                    d="M35 30H50L65 45V70H35V30Z"
-                    className="fill-red-100 dark:fill-red-900/30 stroke-red-500 dark:stroke-red-400"
-                    strokeWidth="2"
-                >
-                    <animate
-                        attributeName="transform"
-                        values="translate(0, 0);translate(0, -2);translate(0, 0)"
-                        dur="2s"
-                        repeatCount="indefinite"
-                    />
-                </path>
-                <path
-                    d="M50 30V45H65"
-                    className="stroke-red-500 dark:stroke-red-400"
-                    strokeWidth="2"
-                >
-                    <animate
-                        attributeName="transform"
-                        values="translate(0, 0);translate(0, -2);translate(0, 0)"
-                        dur="2s"
-                        repeatCount="indefinite"
-                    />
-                </path>
-
-                {/* X mark */}
-                <g className="transform translate-x-[2px]">
-                    <line
-                        x1="43"
-                        y1="50"
-                        x2="57"
-                        y2="60"
-                        className="stroke-red-500 dark:stroke-red-400"
-                        strokeWidth="2"
-                        strokeLinecap="round"
-                    >
-                        <animate
-                            attributeName="transform"
-                            values="translate(0, 0);translate(0, -2);translate(0, 0)"
-                            dur="2s"
-                            repeatCount="indefinite"
-                        />
-                    </line>
-                    <line
-                        x1="57"
-                        y1="50"
-                        x2="43"
-                        y2="60"
-                        className="stroke-red-500 dark:stroke-red-400"
-                        strokeWidth="2"
-                        strokeLinecap="round"
-                    >
-                        <animate
-                            attributeName="transform"
-                            values="translate(0, 0);translate(0, -2);translate(0, 0)"
-                            dur="2s"
-                            repeatCount="indefinite"
-                        />
-                    </line>
-                </g>
-            </g>
-        </svg>
-    </div>
-);
-
 export default function FileUpload({
-    onUploadSuccess,
-    onUploadError,
-    acceptedFileTypes,
+    onUploadSuccess = () => {},
+    onUploadError = () => {},
+    acceptedFileTypes = [],
     maxFileSize = DEFAULT_MAX_FILE_SIZE,
     currentFile: initialFile = null,
-    onFileRemove,
+    onFileRemove = () => {},
     uploadDelay = 2000,
-    validateFile,
+    validateFile = () => null,
     className,
 }: FileUploadProps) {
     const [file, setFile] = useState<File | null>(initialFile);
