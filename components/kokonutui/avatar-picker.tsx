@@ -476,7 +476,7 @@ export default function ProfileSetup({
                                             ? "ring-2 ring-primary/30 ring-offset-2 ring-offset-background"
                                             : "hover:ring-2 hover:ring-primary/20 hover:ring-offset-2 hover:ring-offset-background"
                                     )}
-                                    variants={pickerVariants.item}
+                                    variants={pickerVariants.item as any}
                                     whileHover={{ scale: 1.05 }}
                                     whileTap={{ scale: 0.95 }}
                                     aria-label={`Select ${avatar.alt}`}
