@@ -404,7 +404,9 @@ export default function FileUpload({
             uploadIntervalRef.current = setInterval(() => {
                 currentProgress += UPLOAD_STEP_SIZE;
                 if (currentProgress >= 100) {
-                    clearInterval(uploadIntervalRef.current);
+                    if (uploadIntervalRef.current) {
+                        clearInterval(uploadIntervalRef.current);
+                    }
                     setProgress(0);
                     setStatus("idle");
                     setFile(null);
@@ -415,7 +417,9 @@ export default function FileUpload({
                             setProgress(currentProgress);
                             return "uploading";
                         }
-                        clearInterval(uploadIntervalRef.current);
+                        if (uploadIntervalRef.current) {
+                            clearInterval(uploadIntervalRef.current);
+                        }
                         return prevStatus;
                     });
                 }
