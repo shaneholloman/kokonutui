@@ -41,7 +41,7 @@ export default function Features() {
                         </g>
                     </svg>
                     <span className="text-xs text-center mt-1 whitespace-nowrap text-black dark:text-white">
-                        TailwindCSS
+                        Tailwind CSS
                     </span>
                 </motion.div>
 
