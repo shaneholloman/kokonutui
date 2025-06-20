@@ -43,22 +43,6 @@ const draw = {
     }),
 };
 
-const shimmer = {
-    hidden: {
-        backgroundPosition: "200% 0",
-        opacity: 0.5,
-    },
-    visible: {
-        backgroundPosition: "-200% 0",
-        opacity: 1,
-        transition: {
-            repeat: Number.POSITIVE_INFINITY,
-            duration: 6,
-            ease: [0.22, 1, 0.36, 1],
-        },
-    },
-};
-
 export function Checkmark({
     size = 100,
     strokeWidth = 2,
@@ -80,7 +64,7 @@ export function Checkmark({
                 cy="50"
                 r="42"
                 stroke={color}
-                variants={draw}
+                variants={draw as any}
                 custom={0}
                 style={{
                     strokeWidth,
@@ -92,7 +76,7 @@ export function Checkmark({
             <motion.path
                 d="M32 50L45 63L68 35"
                 stroke={color}
-                variants={draw}
+                variants={draw as any}
                 custom={1}
                 style={{
                     strokeWidth: strokeWidth + 0.5,
