@@ -425,7 +425,7 @@ export default function ProfileSetup({
                         {/* Main Avatar */}
                         <motion.div
                             className="relative w-28 h-28"
-                            variants={mainAvatarVariants}
+                            variants={mainAvatarVariants as any}
                             initial="initial"
                             animate="animate"
                         >
