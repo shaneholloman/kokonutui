@@ -331,7 +331,7 @@ export default function FileUpload({
     const [progress, setProgress] = useState(0);
     const [error, setError] = useState<FileError | null>(null);
     const fileInputRef = useRef<HTMLInputElement>(null);
-    const uploadIntervalRef = useRef<NodeJS.Timeout>();
+    const uploadIntervalRef = useRef<NodeJS.Timeout | null>(null);
 
     // Cleanup on unmount
     useEffect(() => {
