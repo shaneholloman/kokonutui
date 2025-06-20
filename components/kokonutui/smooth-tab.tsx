@@ -353,11 +353,11 @@ export default function SmoothTab({
                             <motion.div
                                 key={`card-${selected}`}
                                 custom={direction}
-                                variants={slideVariants}
+                                variants={slideVariants as any}
                                 initial="enter"
                                 animate="center"
                                 exit="exit"
-                                transition={transition}
+                                transition={transition as any}
                                 className="absolute inset-0 w-full h-full will-change-transform bg-card"
                                 style={{
                                     backfaceVisibility: "hidden",

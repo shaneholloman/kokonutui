@@ -64,7 +64,6 @@ const UploadIllustration = () => (
             aria-label="Upload illustration"
         >
             <title>Upload File Illustration</title>
-            {/* Background circle with dashed stroke */}
             <circle
                 cx="50"
                 cy="50"
@@ -83,7 +82,6 @@ const UploadIllustration = () => (
                 />
             </circle>
 
-            {/* Folder base */}
             <path
                 d="M30 35H70C75 35 75 40 75 40V65C75 70 70 70 70 70H30C25 70 25 65 25 65V40C25 35 30 35 30 35Z"
                 className="fill-blue-100 dark:fill-blue-900/30 stroke-blue-500 dark:stroke-blue-400"
@@ -100,7 +98,6 @@ const UploadIllustration = () => (
                 />
             </path>
 
-            {/* Folder top */}
             <path
                 d="M30 35C30 35 35 35 40 35C45 35 45 30 50 30C55 30 55 35 60 35C65 35 70 35 70 35"
                 className="stroke-blue-500 dark:stroke-blue-400"
@@ -108,7 +105,6 @@ const UploadIllustration = () => (
                 fill="none"
             />
 
-            {/* Upload arrow */}
             <g className="transform translate-y-2">
                 <line
                     x1="50"
@@ -333,7 +329,6 @@ export default function FileUpload({
     const fileInputRef = useRef<HTMLInputElement>(null);
     const uploadIntervalRef = useRef<NodeJS.Timeout | null>(null);
 
-    // Cleanup on unmount
     useEffect(() => {
         return () => {
             if (uploadIntervalRef.current) {
@@ -383,7 +378,6 @@ export default function FileUpload({
             setStatus("error");
             onUploadError?.(error);
 
-            // Auto-clear error after 3 seconds
             setTimeout(() => {
                 setError(null);
                 setStatus("idle");
@@ -396,7 +390,6 @@ export default function FileUpload({
         (uploadingFile: File) => {
             let currentProgress = 0;
 
-            // Clear any existing interval
             if (uploadIntervalRef.current) {
                 clearInterval(uploadIntervalRef.current);
             }
@@ -682,5 +675,4 @@ export default function FileUpload({
     );
 }
 
-// Add prop types validation
 FileUpload.displayName = "FileUpload";

@@ -57,9 +57,6 @@ interface DrawerDemoProps extends React.HTMLAttributes<HTMLDivElement> {
     discountedPrice?: number;
 }
 
-const stripeLink = process.env.NEXT_PUBLIC_STRIPE_PRODUCT_URL || "";
-const code = "BLOSSOM";
-
 const drawerVariants = {
     hidden: {
         y: "100%",
@@ -128,15 +125,15 @@ export default function SmoothDrawer({
             </DrawerTrigger>
             <DrawerContent className="max-w-fit mx-auto p-6 rounded-2xl shadow-xl">
                 <motion.div
-                    variants={drawerVariants}
+                    variants={drawerVariants as any}
                     initial="hidden"
                     animate="visible"
                     className="mx-auto w-full max-w-[340px] space-y-6"
                 >
-                    <motion.div variants={itemVariants}>
+                    <motion.div variants={itemVariants as any}>
                         <DrawerHeader className="px-0 space-y-2.5">
                             <DrawerTitle className="text-2xl font-semibold flex items-center gap-2.5 tracking-tighter">
-                                <motion.div variants={itemVariants}>
+                                <motion.div variants={itemVariants as any}>
                                     <div className="p-1.5 rounded-xl bg-gradient-to-br from-zinc-100 to-zinc-200 dark:from-zinc-800 dark:to-zinc-900 shadow-inner">
                                         <Image
                                             src="/logo.svg"
@@ -154,11 +151,11 @@ export default function SmoothDrawer({
                                         />
                                     </div>
                                 </motion.div>
-                                <motion.span variants={itemVariants}>
+                                <motion.span variants={itemVariants as any}>
                                     {title}
                                 </motion.span>
                             </DrawerTitle>
-                            <motion.div variants={itemVariants}>
+                            <motion.div variants={itemVariants as any}>
                                 <DrawerDescription className="text-sm leading-relaxed text-zinc-600 dark:text-zinc-400 tracking-tighter">
                                     {description}
                                 </DrawerDescription>
@@ -166,14 +163,14 @@ export default function SmoothDrawer({
                         </DrawerHeader>
                     </motion.div>
 
-                    <motion.div variants={itemVariants}>
+                    <motion.div variants={itemVariants as any}>
                         <PriceTag
                             price={price}
                             discountedPrice={discountedPrice}
                         />
                     </motion.div>
 
-                    <motion.div variants={itemVariants}>
+                    <motion.div variants={itemVariants as any}>
                         <DrawerFooter className="flex flex-col gap-3 px-0">
                             <div className="w-full">
                                 <Link

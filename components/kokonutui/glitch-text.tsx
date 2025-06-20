@@ -181,7 +181,7 @@ const GlitchText = ({
                 }}
                 initial="initial"
                 animate={!isStatic ? "animate" : "initial"}
-                variants={glitchAnimation}
+                variants={glitchAnimation as any}
             >
                 {text}
 
@@ -194,9 +194,9 @@ const GlitchText = ({
                     initial="initial"
                     animate={!isStatic ? "animate" : "initial"}
                     variants={{
-                        ...glitchAnimation,
+                        ...glitchAnimation as any,
                         animate: {
-                            ...glitchAnimation.animate,
+                            ...(glitchAnimation as any).animate,
                             transform: [
                                 "translate(0)",
                                 `translate(${-settings.translateRange}px, ${
@@ -230,9 +230,9 @@ const GlitchText = ({
                     initial="initial"
                     animate={!isStatic ? "animate" : "initial"}
                     variants={{
-                        ...glitchAnimation,
+                        ...(glitchAnimation as any),
                         animate: {
-                            ...glitchAnimation.animate,
+                            ...(glitchAnimation as any).animate,
                             transform: [
                                 "translate(0)",
                                 `translate(${

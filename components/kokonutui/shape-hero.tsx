@@ -200,7 +200,7 @@ export default function ShapeHero({
                 <div className="max-w-3xl mx-auto text-center">
                     <motion.div
                         custom={1}
-                        variants={fadeUpVariants}
+                        variants={fadeUpVariants as any}
                         initial="hidden"
                         animate="visible"
                     >
@@ -221,7 +221,7 @@ export default function ShapeHero({
                     </motion.div>
                     <motion.div
                         custom={2}
-                        variants={fadeUpVariants}
+                        variants={fadeUpVariants as any}
                         initial="hidden"
                         animate="visible"
                     >

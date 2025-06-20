@@ -121,7 +121,7 @@ export function Toolbar({
                 <AnimatePresence>
                     {activeNotification && (
                         <motion.div
-                            variants={notificationVariants}
+                            variants={notificationVariants as any}
                             initial="initial"
                             animate="animate"
                             exit="exit"
@@ -137,7 +137,7 @@ export function Toolbar({
                                 clicked!
                             </div>
                             <motion.div
-                                variants={lineVariants}
+                                variants={lineVariants as any}
                                 initial="initial"
                                 animate="animate"
                                 exit="exit"
@@ -151,12 +151,12 @@ export function Toolbar({
                     {toolbarItems.map((item) => (
                         <motion.button
                             key={item.id}
-                            variants={buttonVariants}
+                            variants={buttonVariants as any}
                             initial={false}
                             animate="animate"
                             custom={selected === item.id}
                             onClick={() => handleItemClick(item.id)}
-                            transition={transition}
+                            transition={transition as any}
                             className={cn(
                                 "relative flex items-center rounded-none px-3 py-2",
                                 "text-sm font-medium transition-colors duration-300",
@@ -174,11 +174,11 @@ export function Toolbar({
                             <AnimatePresence initial={false}>
                                 {selected === item.id && (
                                     <motion.span
-                                        variants={spanVariants}
+                                        variants={spanVariants as any}
                                         initial="initial"
                                         animate="animate"
                                         exit="exit"
-                                        transition={transition}
+                                        transition={transition as any}
                                         className="overflow-hidden"
                                     >
                                         {item.title}
