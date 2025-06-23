@@ -469,4 +469,15 @@ export const component: Registry = [
             },
         ],
     },
+    {
+        name: "scroll-text",
+        type: "registry:component",
+        dependencies: ["motion"],
+        files: [
+            {
+                path: "components/kokonutui/scroll-text.tsx",
+                type: "registry:component",
+            },
+        ],
+    },
 ];

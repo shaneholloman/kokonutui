@@ -2,13 +2,14 @@
 
 @custom-variant dark (&:is(.dark *));
 
+@import 'fumadocs-ui/css/preset.css';
 /* @import 'fumadocs-ui/css/neutral.css'; */
-@import "fumadocs-ui/css/black.css";
+/* @import 'fumadocs-ui/css/shadcn.css'; */
+/* @import "fumadocs-ui/css/black.css"; */
 /* @import "fumadocs-ui/css/catppuccin.css"; */
-/* @import "fumadocs-ui/css/dusk.css"; */
+@import "fumadocs-ui/css/dusk.css";
 
 
-@import "fumadocs-ui/css/preset.css";
 @import "tw-animate-css";
 
 @source '../node_modules/fumadocs-ui/dist/**/*.js';
@@ -218,7 +219,8 @@ a[href="/docs/templates/futur"]::after {
 
 a[href="/docs/templates/postly"]::after,
 a[href="/docs/templates/startup"]::after,
-a[href="/docs/templates/ai"]::after {
+a[href="/docs/templates/ai"]::after,
+a[href="/docs/templates/grace"]::after {
   content: "Pro";
   position: absolute;
   right: 0rem;
@@ -247,7 +249,8 @@ a[href="/docs/templates/ai"]::after {
 .dark a[href="/docs/templates/futur"]::after,
 .dark a[href="/docs/templates/postly"]::after,
 .dark a[href="/docs/templates/startup"]::after,
-.dark a[href="/docs/templates/ai"]::after {
+.dark a[href="/docs/templates/ai"]::after,
+.dark a[href="/docs/templates/grace"]::after {
   background-color: rgba(255, 165, 0, 0.2);
   color: #ffa500;
   border: 1px solid rgba(255, 255, 255, 0.2);
