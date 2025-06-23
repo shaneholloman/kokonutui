@@ -1,8 +1,5 @@
 import Link from "next/link";
-import ButtonCta from "@/components/button-cta";
-import TemplateGrid from "@/lib/template-grid";
 import { cn } from "@/lib/utils";
-import { ArrowRightBroken } from "../icons/arrow-right-broken";
 import { ScreenOutlineIcon } from "../icons/screen-outline";
 import { CheckoutIcon } from "../icons/checkout";
 
