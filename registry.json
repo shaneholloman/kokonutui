@@ -1,0 +1,30 @@
+{
+    "name": "kokonutui",
+    "homepage": "https://kokonutui.com",
+    "items": [
+        {
+            "name": "ai-prompt",
+            "type": "registry:component",
+            "dependencies": ["lucide-react", "motion"],
+            "registryDependencies": ["textarea", "button", "dropdown-menu"],
+            "files": [
+                {
+                    "path": "components/kokonutui/ai-prompt.tsx",
+                    "type": "registry:component"
+                },
+                {
+                    "path": "hooks/use-auto-resize-textarea.ts",
+                    "type": "registry:hook"
+                },
+                {
+                    "path": "components/icons/anthropic.tsx",
+                    "type": "registry:component"
+                },
+                {
+                    "path": "components/icons/anthropic-dark.tsx",
+                    "type": "registry:component"
+                }
+            ]
+        }
+    ]
+}
