@@ -10,116 +10,187 @@
  * @github: https://github.com/kokonut-labs/kokonutui
  */
 
-import { motion, useAnimate } from "motion/react";
-import { useEffect } from "react";
+import { motion } from "motion/react";
+import { useEffect, useRef, useState } from "react";
 
-interface TypewriterSequence {
+type TypewriterSequence = {
   text: string;
   deleteAfter?: boolean;
   pauseAfter?: number;
-}
+};
 
-interface TypewriterTitleProps {
+type TypewriterTitleProps = {
   sequences?: TypewriterSequence[];
   typingSpeed?: number;
   startDelay?: number;
   autoLoop?: boolean;
   loopDelay?: number;
-}
+  deleteSpeed?: number;
+  pauseBeforeDelete?: number;
+  naturalVariance?: boolean;
+};
+
+const DEFAULT_SEQUENCES: TypewriterSequence[] = [
+  { text: "Typewriter", deleteAfter: true },
+  { text: "Multiple Words", deleteAfter: true },
+  { text: "Auto Loop", deleteAfter: false },
+];
 
 export default function TypewriterTitle({
-  sequences = [
-    { text: "Typewriter", deleteAfter: true },
-    { text: "Multiple Words", deleteAfter: true },
-    { text: "Auto Loop", deleteAfter: false },
-  ],
+  sequences = DEFAULT_SEQUENCES,
   typingSpeed = 50,
-  startDelay = 500,
+  startDelay = 200,
   autoLoop = true,
-  loopDelay = 2000,
+  loopDelay = 1000,
+  deleteSpeed = 30,
+  pauseBeforeDelete = 1000,
+  naturalVariance = true,
 }: TypewriterTitleProps) {
-  const [scope, animate] = useAnimate();
+  const [displayText, setDisplayText] = useState("");
+  const sequenceIndexRef = useRef(0);
+  const charIndexRef = useRef(0);
+  const isDeletingRef = useRef(false);
+  const timeoutRef = useRef<NodeJS.Timeout | null>(null);
+
+  // Initialize with the sequences provided
+  const sequencesRef = useRef(sequences);
+  useEffect(() => {
+    sequencesRef.current = sequences;
+  }, [sequences]);
 
   useEffect(() => {
-    let isActive = true;
+    const getTypingDelay = () => {
+      if (!naturalVariance) {
+        return typingSpeed;
+      }
 
-    const typeText = async () => {
-      const titleElement = scope.current.querySelector("[data-typewriter]");
-      if (!titleElement) return;
+      // More natural human typing pattern
+      const random = Math.random();
 
-      while (isActive) {
-        // Reset the text content
-        await animate(scope.current, { opacity: 1 });
-        titleElement.textContent = "";
+      // 10% chance of a longer pause (thinking/hesitation)
+      if (random < 0.1) {
+        return typingSpeed * 2;
+      }
 
-        // Wait for initial delay on first run
-        await new Promise((resolve) => setTimeout(resolve, startDelay));
+      // 10% chance of a burst (fast typing)
+      if (random > 0.9) {
+        return typingSpeed * 0.5;
+      }
 
-        // Process each sequence
-        for (const sequence of sequences) {
-          if (!isActive) break;
+      // Standard variance (+/- 40%)
+      const variance = 0.4;
+      const min = typingSpeed * (1 - variance);
+      const max = typingSpeed * (1 + variance);
+      return Math.random() * (max - min) + min;
+    };
 
-          // Type out the sequence text
-          for (let i = 0; i < sequence.text.length; i++) {
-            if (!isActive) break;
-            titleElement.textContent = sequence.text.slice(0, i + 1);
-            await new Promise((resolve) => setTimeout(resolve, typingSpeed));
-          }
+    const runTypewriter = () => {
+      const currentSequence = sequencesRef.current[sequenceIndexRef.current];
+      if (!currentSequence) {
+        return;
+      }
 
-          // Pause after typing if specified
-          if (sequence.pauseAfter) {
-            await new Promise((resolve) =>
-              setTimeout(resolve, sequence.pauseAfter)
-            );
-          }
+      if (isDeletingRef.current) {
+        if (charIndexRef.current > 0) {
+          charIndexRef.current -= 1;
+          setDisplayText(currentSequence.text.slice(0, charIndexRef.current));
+          timeoutRef.current = setTimeout(runTypewriter, deleteSpeed);
+        } else {
+          isDeletingRef.current = false;
+          const isLastSequence =
+            sequenceIndexRef.current === sequencesRef.current.length - 1;
 
-          // Delete the text if specified
-          if (sequence.deleteAfter) {
-            // Small pause before deleting
-            await new Promise((resolve) => setTimeout(resolve, 500));
-
-            for (let i = sequence.text.length; i > 0; i--) {
-              if (!isActive) break;
-              titleElement.textContent = sequence.text.slice(0, i);
-              await new Promise((resolve) =>
-                setTimeout(resolve, typingSpeed / 2)
-              );
-            }
+          if (isLastSequence && autoLoop) {
+            timeoutRef.current = setTimeout(() => {
+              sequenceIndexRef.current = 0;
+              runTypewriter();
+            }, loopDelay);
+          } else if (!isLastSequence) {
+            timeoutRef.current = setTimeout(() => {
+              sequenceIndexRef.current += 1;
+              runTypewriter();
+            }, 100); // Quick transition to next word
           }
         }
+      } else if (charIndexRef.current < currentSequence.text.length) {
+        charIndexRef.current += 1;
+        setDisplayText(currentSequence.text.slice(0, charIndexRef.current));
+        timeoutRef.current = setTimeout(runTypewriter, getTypingDelay());
+      } else {
+        const pauseDuration = currentSequence.pauseAfter ?? pauseBeforeDelete;
 
-        if (!(autoLoop && isActive)) break;
+        if (currentSequence.deleteAfter) {
+          timeoutRef.current = setTimeout(() => {
+            isDeletingRef.current = true;
+            runTypewriter();
+          }, pauseDuration);
+        } else {
+          const isLastSequence =
+            sequenceIndexRef.current === sequencesRef.current.length - 1;
 
-        // Wait before starting next loop
-        await new Promise((resolve) => setTimeout(resolve, loopDelay));
+          if (isLastSequence && autoLoop) {
+            timeoutRef.current = setTimeout(() => {
+              sequenceIndexRef.current = 0;
+              charIndexRef.current = 0;
+              setDisplayText("");
+              runTypewriter();
+            }, loopDelay);
+          } else if (!isLastSequence) {
+            timeoutRef.current = setTimeout(() => {
+              sequenceIndexRef.current += 1;
+              charIndexRef.current = 0;
+              setDisplayText("");
+              runTypewriter();
+            }, pauseDuration);
+          }
+        }
       }
     };
 
-    typeText();
+    // Start the loop
+    timeoutRef.current = setTimeout(runTypewriter, startDelay);
 
-    // Cleanup function to stop the animation when component unmounts
     return () => {
-      isActive = false;
+      if (timeoutRef.current) {
+        clearTimeout(timeoutRef.current);
+      }
     };
-  }, [sequences, typingSpeed, startDelay, autoLoop, loopDelay, animate, scope]);
+  }, [
+    // Only restart effect if timing configs change.
+    // We use sequencesRef for content to avoid restarting on array reference change.
+    typingSpeed,
+    deleteSpeed,
+    pauseBeforeDelete,
+    autoLoop,
+    loopDelay,
+    startDelay,
+    naturalVariance,
+  ]);
 
   return (
     <div className="relative mx-auto w-full max-w-4xl py-24">
-      <div
-        className="relative z-10 flex flex-col items-center justify-center text-center"
-        ref={scope}
-      >
+      <div className="relative z-10 flex flex-col items-center justify-center text-center">
         <motion.div
           animate={{ opacity: 1 }}
-          className="flex items-center gap-2 font-mono text-4xl text-black tracking-tight md:text-6xl dark:text-white"
+          className="flex items-center gap-1 font-mono text-4xl text-black tracking-tight md:text-6xl dark:text-white"
           initial={{ opacity: 0 }}
+          transition={{ duration: 0.5 }}
         >
-          <span
-            className="inline-block animate-cursor border-black border-r-2 pr-1 dark:border-white"
-            data-typewriter
-          >
-            {sequences[0].text}
+          <span className="inline-block min-h-[1.2em] min-w-[0.5em]">
+            {displayText}
           </span>
+          <motion.span
+            animate={{
+              opacity: [1, 1, 0, 0],
+            }}
+            className="inline-block h-[1em] w-[3px] bg-black dark:bg-white"
+            transition={{
+              duration: 1,
+              repeat: Number.POSITIVE_INFINITY,
+              repeatType: "loop",
+              ease: "linear",
+            }}
+          />
         </motion.div>
       </div>
     </div>
