@@ -6,6 +6,7 @@ import Link from "next/link";
 import AILoadingState from "@/components/kokonutui/ai-loading";
 import AI_Prompt from "@/components/kokonutui/ai-prompt";
 import SlideTextButton from "@/components/kokonutui/slide-text-button";
+import { ArrowRightBroken } from "../icons/arrow-right-broken";
 import CardFlip from "../kokonutui/card-flip";
 import FileUpload from "../kokonutui/file-upload";
 import NotificationCenter from "../kokonutui/liquid-glass-card";
@@ -18,7 +19,7 @@ export function HeroSection() {
       <div className="flex w-full flex-col items-start space-y-8 text-left md:mb-28 lg:w-[45%]">
         <div>
           <Link
-            className="group relative mb-6 inline-flex items-center gap-3 rounded-lg px-4 py-2 text-sm text-zinc-600 transition-colors hover:text-zinc-900 dark:text-zinc-400 dark:hover:text-zinc-200"
+            className="group relative mb-6 inline-flex items-center gap-3 rounded-lg px-4 py-2 text-sm text-zinc-600 transition-colors hover:bg-black/5 hover:text-zinc-900 dark:text-zinc-400 dark:hover:bg-white/5 dark:hover:text-zinc-200"
             href="https://kokonutui.pro/templates"
             rel="noreferrer"
             target="_blank"
@@ -45,20 +46,9 @@ export function HeroSection() {
               />
             </svg>
             <span className="relative font-medium">
-              Introducing Sonae template
+              Introducing Agenta template
             </span>
-            <svg
-              className="relative h-3.5 w-3.5 transition-transform group-hover:translate-x-0.5"
-              fill="none"
-              stroke="currentColor"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth="2"
-              viewBox="0 0 24 24"
-            >
-              <title>Arrow Right</title>
-              <path d="M5 12h14M12 5l7 7-7 7" />
-            </svg>
+            <ArrowRightBroken className="h-4 w-4 rotate-[270deg] text-zinc-600 dark:text-zinc-400" />
           </Link>
           <h1 className="font-bold text-5xl text-black leading-[1.1] tracking-tight sm:text-6xl lg:text-6xl dark:text-white">
             {/* Collection of stunning components */}

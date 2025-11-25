@@ -19,10 +19,11 @@ export function ThemeToggle() {
 
   return (
     <Button
-      className="cursor-pointer rounded-md border border-transparent px-3 py-1.5 transition-all hover:border-zinc-200 hover:bg-zinc-50 dark:hover:border-zinc-800 dark:hover:bg-zinc-900"
+      className="cursor-pointer rounded-lg border border-transparent px-2 py-0.5 transition-all hover:border-zinc-200 hover:bg-zinc-50 dark:hover:border-zinc-800 dark:hover:bg-zinc-900"
       onClick={() => {
         setTheme(theme === "dark" ? "light" : "dark");
       }}
+      size="sm"
       variant="ghost"
     >
       {theme === "light" ? (
