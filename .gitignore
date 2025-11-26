@@ -17,6 +17,14 @@
 /.next/
 /out/
 
+#outputs
+.turbo
+.next
+dist
+.contentlayer
+.eslintcache
+.source
+
 # production
 /build
 
@@ -33,6 +41,7 @@ yarn-error.log*
 .env*
 
 .cursor 
+.claude
 
 # vercel
 .vercel
