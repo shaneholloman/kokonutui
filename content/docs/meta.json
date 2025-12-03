@@ -21,6 +21,7 @@
     "components/apple-activity-card",
     "components/beams-background",
     "components/background-paths",
+    "components/morphic-navbar",
     "components/mouse-effect-card",
     "components/bento-grid",
     "components/card",

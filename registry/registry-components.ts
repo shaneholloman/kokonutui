@@ -543,4 +543,15 @@ export const component: Registry = [
       },
     ],
   },
+  {
+    name: "morphic-navbar",
+    type: "registry:component",
+    dependencies: ["clsx"],
+    files: [
+      {
+        path: "components/kokonutui/morphic-navbar.tsx",
+        type: "registry:component",
+      },
+    ],
+  },
 ];
