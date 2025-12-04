@@ -73,6 +73,9 @@ https://kokonutui.com/docs/components/attract-button
 **Matrix Text** - "010110010110111101110101011100100010000001110111011001010110110001100011011011110110110101100101"
 https://kokonutui.com/docs/components/matrix-text
 
+**Morphic Navbar** - A dynamic navbar with morphing animation effects between active states.
+https://kokonutui.com/docs/components/morphic-navbar
+
 **Mouse Effect Card** - Interactive card with animated dot pattern that responds to mouse movement.
 https://kokonutui.com/docs/components/mouse-effect-card
 
