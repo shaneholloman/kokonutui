@@ -1,6 +1,6 @@
 # KokonutUI - UI Component Library
 
-A beautiful collection of UI components built with Next.js, React, TailwindCSS, and Motion.
+Collection of 100+ stunning UI components free and open source built with Next.js, React, Tailwind CSS, and Motion.
 
 ## Components
 
@@ -133,7 +133,19 @@ https://kokonutui.com/docs/components/v0-button
 **X Card** - Gradient on hover X card. (The post is real!)
 https://kokonutui.com/docs/components/tweet-card
 
+## Templates and Premium Components (Kokonut UI Pro)
+
+Templates and premium components are available on the premium version of Kokonut UI.
+https://kokonutui.pro/templates
+
+## Premium Components (Kokonut UI Pro)
+
+Premium components are available on the premium version of Kokonut UI.
+https://kokonutui.pro/components
+
 ## Links
 
+- Website: https://kokonutui.com
 - Github: https://github.com/kokonut-labs/kokonutui
 - Sitemap: https://kokonutui.com/sitemap.xml
+
