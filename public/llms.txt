@@ -55,7 +55,7 @@ https://kokonutui.com/docs/components/file-upload
 **Glitch Text** - Why not?
 https://kokonutui.com/docs/components/glitch-text
 
-**Gradient Button** - That was so hard to make.
+**Gradient Button** - This look more hard than it looks.
 https://kokonutui.com/docs/components/gradient-button
 
 **Hold Button** - Hold Button with different hold duration and colors.
