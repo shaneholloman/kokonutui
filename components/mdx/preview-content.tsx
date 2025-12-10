@@ -1,6 +1,6 @@
 "use client";
 
-import { CheckCheck, Code } from "lucide-react";
+import { CheckCheck, Copy } from "lucide-react";
 import { AnimatePresence, motion } from "motion/react";
 import {
   type RefObject,
@@ -144,16 +144,16 @@ export default function PreviewContent({
 
   return (
     <>
-      {isTerminalCopied && (
+      {isTerminalCopied ? (
         <SuccessParticles
           buttonRef={terminalButtonRef as RefObject<HTMLButtonElement>}
         />
-      )}
-      {isCopied && (
+      ) : null}
+      {isCopied ? (
         <SuccessParticles
           buttonRef={copyButtonRef as RefObject<HTMLButtonElement>}
         />
-      )}
+      ) : null}
       <div className="relative flex w-full flex-col items-start justify-between gap-1 sm:flex-row sm:items-center sm:gap-2">
         <div className="w-full sm:w-auto">
           <PackageManagerTabs
@@ -194,7 +194,7 @@ export default function PreviewContent({
                 {isCopied ? (
                   <CheckCheck className="h-3.5 w-3.5 text-white dark:text-black" />
                 ) : (
-                  <Code
+                  <Copy
                     className={cn(
                       "h-3.5 w-3.5",
                       "transition-all duration-200",
