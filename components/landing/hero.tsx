@@ -7,9 +7,9 @@ import AILoadingState from "@/components/kokonutui/ai-loading";
 import AI_Prompt from "@/components/kokonutui/ai-prompt";
 import SlideTextButton from "@/components/kokonutui/slide-text-button";
 import { ArrowRightBroken } from "../icons/arrow-right-broken";
+import AppleActivityCard from "../kokonutui/apple-activity-card";
 import CardFlip from "../kokonutui/card-flip";
 import FileUpload from "../kokonutui/file-upload";
-import NotificationCenter from "../kokonutui/liquid-glass-card";
 import FeatureBlock from "./feature-block";
 
 export function HeroSection() {
@@ -48,7 +48,7 @@ export function HeroSection() {
             <span className="relative font-medium">
               Introducing Agenta template
             </span>
-            <ArrowRightBroken className="h-4 w-4 rotate-[270deg] text-zinc-600 dark:text-zinc-400" />
+            <ArrowRightBroken className="h-4 w-4 rotate-270deg text-zinc-600 dark:text-zinc-400" />
           </Link>
           <h1 className="font-bold text-5xl text-black leading-[1.1] tracking-tight sm:text-6xl lg:text-6xl dark:text-white">
             {/* Collection of stunning components */}
@@ -72,8 +72,8 @@ export function HeroSection() {
         </div>
         <FeatureBlock />
         <div className="mt-8 w-full space-y-2">
-          <div className="h-[1px] w-full bg-gradient-to-r from-zinc-950/5 via-zinc-950/50 to-transparent dark:from-zinc-50/5 dark:via-zinc-50/50" />
-          <div className="h-[1px] w-[70%] bg-gradient-to-r from-zinc-950/5 via-zinc-950/30 to-transparent dark:from-zinc-50/5 dark:via-zinc-50/30" />
+          <div className="h-px w-full bg-linear-to-r from-zinc-950/5 via-zinc-950/50 to-transparent dark:from-zinc-50/5 dark:via-zinc-50/50" />
+          <div className="h-px w-[70%] bg-linear-to-r from-zinc-950/5 via-zinc-950/30 to-transparent dark:from-zinc-50/5 dark:via-zinc-50/30" />
         </div>
         <Link
           className="group my-1 mt-2 mb-4 flex items-center gap-1.5 text-gray-600 text-xs transition-colors hover:cursor-pointer hover:font-medium hover:text-gray-800 dark:text-gray-400 dark:hover:text-gray-300"
@@ -176,8 +176,8 @@ export function HeroSection() {
             }}
             whileHover={{ rotate: 0, x: 0, scale: 1.02 }}
           >
-            {/* <AppleActivityCard title="" /> */}
-            <NotificationCenter />
+            <AppleActivityCard />
+            {/* <NotificationCenter /> */}
           </motion.div>
         </motion.div>
       </div>
