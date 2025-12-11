@@ -15,7 +15,7 @@ export async function Header() {
   const stars = await fetch(
     "https://api.github.com/repos/kokonut-labs/kokonutui",
     {
-      next: { revalidate: 3600 }, // cache 1 hour
+      next: { revalidate: 86_400 }, // cache 24 hours
     }
   );
 
