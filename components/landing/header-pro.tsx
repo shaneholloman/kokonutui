@@ -3,39 +3,37 @@ import Link from "next/link";
 import { ConfettiOutline } from "../icons/conffeti";
 
 export function HeaderPro() {
-    return (
-        <div className="w-full bg-[#FF2D55] sticky top-0 z-[100]">
-            <div className="w-full px-4 py-2.5">
-                <Link
-                    href="https://kokonutui.pro?utm_source=kokonutui.com&utm_medium=header"
-                    target="_blank"
-                    className="flex items-center justify-center gap-2.5 md:gap-3 group transition-all duration-300 tracking-tighter"
-                >
-                    {/* Desktop View */}
-                    <span className="hidden md:flex items-center gap-3">
-                        <ConfettiOutline className="w-5 h-5 text-white" />
-                        <span className="text-white tracking-tighter text-md">
-                            Introducing{" "}
-                            <span className="font-bold">Kokonut UI Pro</span> -
-                            70+ new components and templates to build beautiful
-                            websites
-                        </span>
-                        <span className="inline-flex items-center gap-1.5">
-                            <ArrowUpRight className="w-3.5 h-3.5 text-white transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
-                        </span>
-                    </span>
+  return (
+    <div className="sticky top-0 z-[100] w-full bg-[#FF2D55]">
+      <div className="w-full px-4 py-2.5">
+        <Link
+          className="group flex items-center justify-center gap-2.5 tracking-tighter transition-all duration-300 md:gap-3"
+          href="https://kokonutui.pro?utm_source=kokonutui.com&utm_medium=header"
+          target="_blank"
+        >
+          {/* Desktop View */}
+          <span className="hidden items-center gap-3 md:flex">
+            <ConfettiOutline className="h-5 w-5 text-white" />
+            <span className="text-md text-white tracking-tighter">
+              Introducing <span className="font-bold">Kokonut UI Pro</span> -
+              70+ new components and templates to build beautiful websites
+            </span>
+            <span className="inline-flex items-center gap-1.5">
+              <ArrowUpRight className="group-hover:-translate-y-0.5 h-3.5 w-3.5 text-white transition-transform group-hover:translate-x-0.5" />
+            </span>
+          </span>
 
-                    {/* Mobile View */}
-                    <span className="flex md:hidden items-center gap-2.5">
-                        <PartyPopper className="w-5 h-5 text-white flex-shrink-0" />
-                        <span className="text-white font-medium tracking-tight text-xs leading-tight">
-                            Introducing Kokonut UI Pro - 70+ new components and
-                            templates to build beautiful websites
-                        </span>
-                        <ArrowUpRight className="w-3.5 h-3.5 text-white flex-shrink-0 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
-                    </span>
-                </Link>
-            </div>
-        </div>
-    );
+          {/* Mobile View */}
+          <span className="flex items-center gap-2.5 md:hidden">
+            <PartyPopper className="h-5 w-5 flex-shrink-0 text-white" />
+            <span className="font-medium text-white text-xs leading-tight tracking-tight">
+              Introducing Kokonut UI Pro - 70+ new components and templates to
+              build beautiful websites
+            </span>
+            <ArrowUpRight className="group-hover:-translate-y-0.5 h-3.5 w-3.5 flex-shrink-0 text-white transition-transform group-hover:translate-x-0.5" />
+          </span>
+        </Link>
+      </div>
+    </div>
+  );
 }

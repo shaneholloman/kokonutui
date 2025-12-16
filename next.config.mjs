@@ -55,6 +55,7 @@ const nextConfig = {
       },
     ],
     minimumCacheTTL: 2_678_400,
+    qualities: [75, 90],
   },
   reactStrictMode: true,
   cacheComponents: true,

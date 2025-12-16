@@ -1,64 +1,129 @@
+import { ArrowUpRight } from "lucide-react";
+import Image from "next/image";
 import Link from "next/link";
-import XIcon from "../icons/x-icon";
+import { siteConfig } from "@/config/site";
 
 export function Footer() {
-    return (
-        <footer className="border-t border-zinc-200 dark:border-zinc-800">
-            <div className="mx-auto px-4">
-                <div className="flex flex-col sm:flex-row items-center justify-between py-6 sm:h-16">
-                    <nav className="flex flex-col sm:flex-row items-center space-y-4 sm:space-y-0 sm:space-x-6 sm:w-1/3">
-                        <Link
-                            href="/docs/components/liquid-glass-card"
-                            className="text-sm text-zinc-600 hover:text-zinc-900 dark:text-zinc-400 dark:hover:text-white transition-colors"
-                        >
-                            /Components
-                        </Link>
-                        <Link
-                            href="/docs"
-                            className="text-sm text-zinc-600 hover:text-zinc-900 dark:text-zinc-400 dark:hover:text-white transition-colors"
-                        >
-                            /Docs
-                        </Link>
-                        <Link
-                            href="https://kokonutui.pro/templates?utm_source=kokonutui.com&utm_medium=footer"
-                            target="_blank"
-                            className="text-sm text-zinc-600 hover:text-zinc-900 dark:text-zinc-400 dark:hover:text-white transition-colors"
-                        >
-                            /Templates
-                        </Link>
-                    </nav>
+  return (
+    <footer className="relative w-full overflow-hidden border-black/10 border-t dark:border-white/10">
+      {/* Big Background Text */}
+      <div className="pointer-events-none absolute inset-0 flex items-center justify-center overflow-hidden">
+        <span className="select-none whitespace-nowrap font-black text-[25vw] text-black/4 leading-none tracking-tighter md:text-[20vw] lg:text-[18vw] xl:text-[15vw] dark:text-white/4">
+          Kokonut UI
+        </span>
+      </div>
+      <div className="relative mx-auto max-w-7xl px-4 py-8 sm:px-6 sm:py-10">
+        <div className="flex w-full flex-col gap-8 lg:flex-row lg:justify-between">
+          {/* Brand Section */}
+          <div className="flex w-full flex-col gap-4 lg:w-auto">
+            <Link href="/" target="_blank">
+              <div className="flex items-center">
+                <span className="inline-flex items-center font-bold tracking-tight">
+                  <Image alt="logo" height={28} src="/logo.svg" width={28} />
 
-                    <div className="flex justify-center sm:w-1/3">
-                        <Link
-                            href="https://vercel.com/blog/spring25-oss-program#kokonutui"
-                            target="_blank"
-                            rel="noreferrer"
-                            className="text-gray-600 dark:text-gray-400 transition-colors flex items-center gap-1.5 text-xs hover:text-gray-800 dark:hover:text-gray-300 group hover:font-medium hover:cursor-pointer"
-                        >
-                            <span className="hidden md:flex items-center gap-2">
-                                <img
-                                    alt="Vercel OSS Program"
-                                    src="https://vercel.com/oss/program-badge.svg"
-                                />
-                            </span>
-                        </Link>
-                    </div>
-
-                    <div className="flex justify-end sm:w-1/3">
-                        <Link
-                            href="https://x.com/dorian_baffier"
-                            target="_blank"
-                            className="text-sm text-zinc-600 dark:text-zinc-400 mt-4 sm:mt-0 hover:text-zinc-900 dark:hover:text-white transition-colors flex items-center gap-1"
-                        >
-                            <XIcon className="w-4 h-4" />
-                            built for you by{" "}
-                            <span className="text-orange-500 dark:text-orange-400 font-bold underline">
-                                Dorian
-                            </span>
-                        </Link>
-                    </div>
-                </div>
+                  <span className="ml-1 sm:ml-0">Kokonut UI</span>
+                </span>
+              </div>
+            </Link>
+            <div className="flex flex-col gap-1">
+              <p className="max-w-xs text-black/80 text-xs tracking-tight sm:text-sm dark:text-white/60">
+                A website from{" "}
+                <Link
+                  className="font-semibold text-primary transition-colors hover:text-black dark:hover:text-white"
+                  href="https://aris.studio"
+                  target="_blank"
+                >
+                  Aris Studio
+                  <ArrowUpRight className="group-hover:-translate-y-0.5 h-3.5 w-3.5 shrink-0 text-white transition-transform group-hover:translate-x-0.5" />
+                </Link>
+              </p>
+              <p className="max-w-xs text-black/80 text-xs tracking-tight sm:text-sm dark:text-white/60">
+                Built by{" "}
+                <Link
+                  className="font-semibold text-primary transition-colors hover:text-black dark:hover:text-white"
+                  href="https://aris.studio"
+                  target="_blank"
+                >
+                  Dorian Baffier
+                  <ArrowUpRight className="group-hover:-translate-y-0.5 h-3.5 w-3.5 shrink-0 text-white transition-transform group-hover:translate-x-0.5" />
+                </Link>
+              </p>
             </div>
-        </footer>
-    );
+          </div>
+
+          {/* Links Section */}
+          <nav className="flex flex-col gap-3">
+            <ul className="grid grid-cols-2 gap-x-8 gap-y-2">
+              <li>
+                <Link
+                  className="text-black/70 text-sm transition-colors hover:text-black dark:text-white/70 dark:hover:text-white"
+                  href="/components"
+                >
+                  Components
+                </Link>
+              </li>
+              <li>
+                <Link
+                  className="text-black/70 text-sm transition-colors hover:text-black dark:text-white/70 dark:hover:text-white"
+                  href="https://kokonutui.pro/templates"
+                  target="_blank"
+                >
+                  Templates
+                </Link>
+              </li>
+              <li>
+                <Link
+                  className="text-black/70 text-sm transition-colors hover:text-black dark:text-white/70 dark:hover:text-white"
+                  href="https://kokonutui.pro?utm_source=kokonutui.com&utm_medium=footer"
+                  target="_blank"
+                >
+                  Kokonut UI - Pro
+                </Link>
+              </li>
+              <li>
+                <Link
+                  className="text-black/70 text-sm transition-colors hover:text-black dark:text-white/70 dark:hover:text-white"
+                  href={siteConfig.links.github}
+                  rel="noopener noreferrer"
+                  target="_blank"
+                >
+                  Github Open Source
+                </Link>
+              </li>
+              <li>
+                <Link
+                  className="text-black/70 text-sm transition-colors hover:text-black dark:text-white/70 dark:hover:text-white"
+                  href="https://vercel.com/blog/spring25-oss-program#kokonutui"
+                  rel="noopener noreferrer"
+                  target="_blank"
+                >
+                  Vercel OSS 2025
+                </Link>
+              </li>
+              <li>
+                <Link
+                  className="text-black/70 text-sm transition-colors hover:text-black dark:text-white/70 dark:hover:text-white"
+                  href="https://aris.studio"
+                  rel="noopener noreferrer"
+                  target="_blank"
+                >
+                  Aris Studio
+                </Link>
+              </li>
+              <li>
+                <Link
+                  className="text-black/70 text-sm transition-colors hover:text-black dark:text-white/70 dark:hover:text-white"
+                  href={siteConfig.links.twitter}
+                  rel="noopener noreferrer"
+                  target="_blank"
+                >
+                  X (Twitter)
+                </Link>
+              </li>
+            </ul>
+          </nav>
+        </div>
+      </div>
+    </footer>
+  );
 }

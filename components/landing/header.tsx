@@ -50,6 +50,12 @@ export async function Header() {
                   >
                     Templates
                   </Link>
+                  <ViewTransitionsLink
+                    className="flex items-center gap-1 rounded-lg px-3 py-1 font-medium text-[15px] text-black/80 tracking-tighter transition-all duration-200 hover:bg-black/5 dark:text-white/80 dark:hover:bg-white/5"
+                    href="/#testimonials"
+                  >
+                    Testimonials
+                  </ViewTransitionsLink>
                 </div>
               </div>
 
@@ -104,6 +110,12 @@ export async function Header() {
                   target="_blank"
                 >
                   Templates
+                </ViewTransitionsLink>
+                <ViewTransitionsLink
+                  className="rounded-md border border-transparent px-3 py-1.5 text-sm text-zinc-600 transition-all hover:border-zinc-200 hover:bg-zinc-50 hover:text-zinc-900 dark:text-zinc-400 dark:hover:border-zinc-800 dark:hover:bg-zinc-900 dark:hover:text-zinc-100"
+                  href="/#testimonials"
+                >
+                  Testimonials
                 </ViewTransitionsLink>
                 <ThemeToggle />
               </div>

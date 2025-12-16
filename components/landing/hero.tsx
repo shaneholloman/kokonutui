@@ -10,7 +10,6 @@ import { ArrowRightBroken } from "../icons/arrow-right-broken";
 import AppleActivityCard from "../kokonutui/apple-activity-card";
 import CardFlip from "../kokonutui/card-flip";
 import FileUpload from "../kokonutui/file-upload";
-import FeatureBlock from "./feature-block";
 
 export function HeroSection() {
   return (
@@ -48,7 +47,7 @@ export function HeroSection() {
             <span className="relative font-medium">
               Introducing Agenta template
             </span>
-            <ArrowRightBroken className="h-4 w-4 rotate-270deg text-zinc-600 dark:text-zinc-400" />
+            <ArrowRightBroken className="h-4 w-4 rotate-[270deg] text-zinc-600 dark:text-zinc-400" />
           </Link>
           <h1 className="font-bold text-5xl text-black leading-[1.1] tracking-tight sm:text-6xl lg:text-6xl dark:text-white">
             {/* Collection of stunning components */}
@@ -70,7 +69,6 @@ export function HeroSection() {
             />
           </div>
         </div>
-        <FeatureBlock />
         <div className="mt-8 w-full space-y-2">
           <div className="h-px w-full bg-linear-to-r from-zinc-950/5 via-zinc-950/50 to-transparent dark:from-zinc-50/5 dark:via-zinc-50/50" />
           <div className="h-px w-[70%] bg-linear-to-r from-zinc-950/5 via-zinc-950/30 to-transparent dark:from-zinc-50/5 dark:via-zinc-50/30" />
