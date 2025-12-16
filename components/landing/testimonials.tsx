@@ -22,7 +22,7 @@ export default function TestimonialsSection() {
           </p>
         </div>
 
-        <div className="mx-auto grid max-w-7xl grid-cols-2 gap-6 md:grid-cols-2 lg:grid-cols-4">
+        <div className="mx-auto grid max-w-7xl grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-4">
           {/* Left Column: Tweet Cards */}
           <div className="flex flex-col gap-4 lg:col-span-2">
             {/* Tweet-like Card */}
