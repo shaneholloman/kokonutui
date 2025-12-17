@@ -4,6 +4,7 @@ import { Link as ViewTransitionsLink } from "next-view-transitions";
 import { ThemeToggle } from "@/lib/theme-toggle";
 import { HeaderPro } from "./header-pro";
 
+2;
 function formatNumber(value: number) {
   return Intl.NumberFormat("en", {
     notation: "compact",

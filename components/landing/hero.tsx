@@ -7,9 +7,9 @@ import AILoadingState from "@/components/kokonutui/ai-loading";
 import AI_Prompt from "@/components/kokonutui/ai-prompt";
 import SlideTextButton from "@/components/kokonutui/slide-text-button";
 import { ArrowRightBroken } from "../icons/arrow-right-broken";
-import AppleActivityCard from "../kokonutui/apple-activity-card";
 import CardFlip from "../kokonutui/card-flip";
 import FileUpload from "../kokonutui/file-upload";
+import NotificationCenter from "../kokonutui/liquid-glass-card";
 
 export function HeroSection() {
   return (
@@ -174,8 +174,8 @@ export function HeroSection() {
             }}
             whileHover={{ rotate: 0, x: 0, scale: 1.02 }}
           >
-            <AppleActivityCard />
-            {/* <NotificationCenter /> */}
+            {/* <AppleActivityCard /> */}
+            <NotificationCenter />
           </motion.div>
         </motion.div>
       </div>

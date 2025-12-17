@@ -1,5 +1,3 @@
-"use client";
-
 import { VerifiedIcon } from "lucide-react";
 import Image from "next/image";
 import XIcon from "../icons/x-icon";
@@ -38,7 +36,9 @@ export default function XCard({
             <span className="font-semibold text-black dark:text-white/90">
               {name}
             </span>
-            {isVerified && <VerifiedIcon className="h-4 w-4 text-blue-400" />}
+            {isVerified ? (
+              <VerifiedIcon className="h-4 w-4 text-blue-400" />
+            ) : null}
             <span className="text-black/60 text-sm dark:text-white/60">
               @{username}
             </span>
@@ -54,11 +54,11 @@ export default function XCard({
 
         <div className="mt-3">
           {content}
-          {date && (
+          {date ? (
             <span className="mt-2 block text-black/50 text-sm dark:text-white/50">
               {date}
             </span>
-          )}
+          ) : null}
         </div>
       </div>
     </div>
