@@ -36,7 +36,7 @@ export default function TestimonialsSection() {
 
             {/* Tweet Card - Inline */}
             <Link
-              href="https://x.com/dorian_baffier/status/1880291036410572934"
+              href="https://x.com/dorianbaffier/status/1880291036410572934"
               target="_blank"
             >
               <div className="w-full rounded-3xl bg-black/5 p-1.5 dark:bg-white/5">
@@ -64,7 +64,7 @@ export default function TestimonialsSection() {
                             <VerifiedIcon className="h-4 w-4 text-blue-400" />
                           </div>
                           <span className="text-black text-sm dark:text-white/60">
-                            @dorian_baffier
+                            @dorianbaffier
                           </span>
                         </div>
                         <button

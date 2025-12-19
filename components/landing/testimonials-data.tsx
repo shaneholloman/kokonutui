@@ -51,7 +51,7 @@ export const testimonials: XCardProps[] = [
     content: (
       <>
         <p className="text-base text-black dark:text-white/90">
-          Super cool background paths by @dorian_baffier's, check out
+          Super cool background paths by @dorianbaffier's, check out
           https://kokonutui.com
         </p>
       </>

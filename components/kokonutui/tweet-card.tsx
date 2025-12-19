@@ -3,7 +3,7 @@ import Link from "next/link";
 import { cn } from "@/lib/utils";
 
 /**
- * @author: @dorian_baffier
+ * @author: @dorianbaffier
  * @description: Tweet Card
  * @version: 1.0.0
  * @date: 2025-10-01
@@ -33,7 +33,7 @@ type TweetCardProps = {
 
 export default function TweetCard({
   authorName = "Dorian",
-  authorHandle = "dorian_baffier",
+  authorHandle = "dorianbaffier",
   authorImage = "https://pbs.twimg.com/profile_images/1992215290936205312/N_EuwLUO_400x400.jpg",
   content = [
     "All components from KokonutUI can now be open in @v0 🎉",
@@ -55,7 +55,7 @@ export default function TweetCard({
 }: TweetCardProps) {
   return (
     <Link
-      href="https://x.com/dorian_baffier/status/1880291036410572934"
+      href="https://x.com/dorianbaffier/status/1880291036410572934"
       target="_blank"
     >
       <div

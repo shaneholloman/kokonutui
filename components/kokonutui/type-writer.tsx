@@ -1,7 +1,7 @@
 "use client";
 
 /**
- * @author: @dorian_baffier
+ * @author: @dorianbaffier
  * @description: Typewriter
  * @version: 1.0.0
  * @date: 2025-06-26

@@ -29,7 +29,7 @@ export const metadata: Metadata = {
     "react design",
   ],
   robots: "index, follow",
-  authors: [{ name: "Dorian Baffier", url: "https://x.com/dorian_baffier" }],
+  authors: [{ name: "Dorian Baffier", url: "https://x.com/dorianbaffier" }],
   creator: "Dorian Baffier",
   openGraph: {
     title: siteConfig.name,
@@ -39,7 +39,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    creator: "@dorian_baffier",
+    creator: "@dorianbaffier",
     title: siteConfig.name,
     description: siteConfig.description,
   },

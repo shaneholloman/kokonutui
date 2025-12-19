@@ -1,7 +1,7 @@
 "use client";
 
 /**
- * @author: @dorian_baffier
+ * @author: @dorianbaffier
  * @description: Team Selector
  * @version: 1.0.0
  * @date: 2025-06-26

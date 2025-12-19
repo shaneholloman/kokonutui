@@ -1,7 +1,7 @@
 "use client";
 
 /**
- * @author: @dorian_baffier
+ * @author: @dorianbaffier
  * @description: Liquid Glass Card - Optimized with Shadcn UI
  * @version: 2.0.0
  * @date: 2025-10-11

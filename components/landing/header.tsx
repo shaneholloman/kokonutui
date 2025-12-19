@@ -82,7 +82,7 @@ export async function Header() {
                 </Link>
                 <Link
                   className="group relative inline-flex items-center gap-2 rounded-md border border-transparent px-2 py-2 text-sm text-zinc-600 transition-all hover:border-zinc-200 hover:bg-zinc-50 hover:text-zinc-900 dark:text-zinc-400 dark:hover:border-zinc-800 dark:hover:bg-zinc-900 dark:hover:text-zinc-100"
-                  href="https://x.com/dorian_baffier"
+                  href="https://x.com/dorianbaffier"
                   target="_blank"
                 >
                   <svg
