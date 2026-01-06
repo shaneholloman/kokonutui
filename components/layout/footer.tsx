@@ -28,21 +28,12 @@ export function Footer() {
             <div className="flex flex-col gap-1">
               <Link
                 className="flex max-w-xs items-center justify-center gap-1 text-black/80 text-xs tracking-tight hover:text-primary sm:text-sm dark:text-white/60 dark:hover:text-primary"
-                href="https://aris.studio"
-                target="_blank"
-              >
-                A website from{" "}
-                <span className="font-semibold">Aris Studio</span>
-                <ArrowUpRight className="group-hover:-translate-y-0.5 h-3.5 w-3.5 shrink-0 text-black transition-transform group-hover:translate-x-0.5 dark:text-white" />
-              </Link>
-              <Link
-                className="flex max-w-xs items-center justify-center gap-1 text-black/80 text-xs tracking-tight hover:text-primary sm:text-sm dark:text-white/60 dark:hover:text-primary"
                 href="https://dorianbaffier.com"
                 rel="noopener noreferrer"
                 target="_blank"
               >
                 Built by <span className="font-semibold">Dorian Baffier</span>
-                <ArrowUpRight className="group-hover:-translate-y-0.5 h-3.5 w-3.5 shrink-0 text-black transition-transform group-hover:translate-x-0.5 dark:text-white" />
+                <ArrowUpRight className="h-3.5 w-3.5 shrink-0 text-black transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5 dark:text-white" />
               </Link>
             </div>
           </div>
