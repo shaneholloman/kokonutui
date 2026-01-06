@@ -1,8 +1,13 @@
 {
   "name": "liquid-glass-card",
   "type": "registry:component",
-  "dependencies": ["lucide-react"],
-  "registryDependencies": ["card", "button"],
+  "dependencies": [
+    "lucide-react"
+  ],
+  "registryDependencies": [
+    "card",
+    "button"
+  ],
   "files": [
     {
       "type": "registry:component",
