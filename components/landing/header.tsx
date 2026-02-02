@@ -4,7 +4,6 @@ import { Link as ViewTransitionsLink } from "next-view-transitions";
 import { ThemeToggle } from "@/lib/theme-toggle";
 import { HeaderPro } from "./header-pro";
 
-2;
 function formatNumber(value: number) {
   return Intl.NumberFormat("en", {
     notation: "compact",
@@ -16,7 +15,10 @@ export async function Header() {
   const stars = await fetch(
     "https://api.github.com/repos/kokonut-labs/kokonutui",
     {
-      next: { revalidate: 86_400 }, // cache 24 hours
+      /** ts-ignore */
+      // Use fetch cache option for 24h (Next.js App Router)
+      cache: "force-cache",
+      next: { revalidate: 9999 }, // cache 24 hours
     }
   );
 
