@@ -19,7 +19,7 @@ export function HeaderPro() {
               70+ new components and templates to build beautiful websites
             </span>
             <span className="inline-flex items-center gap-1.5">
-              <ArrowUpRight className="group-hover:-translate-y-0.5 h-3.5 w-3.5 text-white transition-transform group-hover:translate-x-0.5" />
+              <ArrowUpRight className="h-3.5 w-3.5 text-white transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
             </span>
           </span>
 
@@ -30,7 +30,7 @@ export function HeaderPro() {
               Introducing Kokonut UI Pro - 70+ new components and templates to
               build beautiful websites
             </span>
-            <ArrowUpRight className="group-hover:-translate-y-0.5 h-3.5 w-3.5 flex-shrink-0 text-white transition-transform group-hover:translate-x-0.5" />
+            <ArrowUpRight className="h-3.5 w-3.5 flex-shrink-0 text-white transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
           </span>
         </Link>
       </div>

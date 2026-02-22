@@ -6,6 +6,7 @@ import {
   DocsTitle,
 } from "fumadocs-ui/page";
 import { notFound } from "next/navigation";
+import TocProBanner from "@/components/landing/toc-pro-banner";
 import { Preview } from "@/components/mdx/preview";
 import { PreviewClient } from "@/components/mdx/preview-client";
 import PreviewTemplate from "@/components/mdx/preview-template";
@@ -21,8 +22,19 @@ export default async function Page(props: PageProps<"/docs/[[...slug]]">) {
 
   const MDX = page.data.body;
 
+  const hasToc = page.data.toc.length > 0;
+
+  const tableOfContent = page.data.full
+    ? undefined
+    : { footer: <TocProBanner />, component: hasToc ? undefined : <></> };
+
   return (
-    <DocsPage footer={{ enabled: false }}>
+    <DocsPage
+      footer={{ enabled: false }}
+      full={page.data.full}
+      tableOfContent={tableOfContent}
+      toc={page.data.toc}
+    >
       <DocsTitle className="ml-8 font-semibold text-4xl tracking-tighter">
         {page.data.title}
       </DocsTitle>
