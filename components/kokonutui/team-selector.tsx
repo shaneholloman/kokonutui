@@ -3,7 +3,7 @@
 /**
  * @author: @dorianbaffier
  * @description: Team Selector
- * @version: 1.0.0
+ * @version: 2.0.0
  * @date: 2025-06-26
  * @license: MIT
  * @website: https://kokonutui.com
@@ -12,15 +12,16 @@
 
 import { AnimatePresence, motion, type Variants } from "motion/react";
 import Image from "next/image";
-import { useState } from "react";
+import { useRef, useState } from "react";
 
 const MAX_TEAM_SIZE = 4;
+const AVATAR_OVERLAP = 10;
 
-type TeamMember = {
+interface TeamMember {
   id: string;
   avatarUrl: string;
   name: string;
-};
+}
 
 const TEAM_MEMBERS: TeamMember[] = [
   {
@@ -52,39 +53,39 @@ const TEAM_MEMBERS: TeamMember[] = [
 const animations = {
   container: {
     initial: { opacity: 0, y: 20 },
-    animate: { opacity: 1, y: 0 },
-    exit: { opacity: 0, y: -20 },
-  } satisfies Variants,
-  avatar: {
-    initial: { opacity: 0, scale: 0.8 },
     animate: {
       opacity: 1,
-      scale: 1,
-      transition: { duration: 0.3 },
+      y: 0,
+      transition: { duration: 0.45, ease: "easeOut" },
     },
     exit: {
       opacity: 0,
-      scale: 0.8,
-      transition: { duration: 0.15 },
+      y: -20,
+      transition: { duration: 0.3, ease: "easeOut" },
+    },
+  } satisfies Variants,
+  avatar: {
+    visible: {
+      opacity: 1,
+      scale: 1,
+      transition: {
+        type: "spring",
+        stiffness: 300,
+        damping: 24,
+        mass: 0.8,
+      },
+    },
+    hidden: {
+      opacity: 0,
+      scale: 0.6,
+      transition: { duration: 0.22, ease: "easeOut" },
     },
   } satisfies Variants,
   vibration: {
-    initial: { x: 0 },
-    animate: {
-      x: [-5, 5, -5, 5, 0] as const,
-      transition: { duration: 0.3 },
-    },
-  } satisfies Variants,
-  number: {
-    initial: { scale: 0.8, opacity: 0 },
-    animate: {
-      scale: 1,
-      opacity: 1,
-      transition: {
-        type: "spring",
-        stiffness: 400,
-        damping: 25,
-      },
+    idle: { x: 0 },
+    shake: {
+      x: [-4, 4, -4, 4, 0] as const,
+      transition: { duration: 0.38, ease: "easeOut" },
     },
   } satisfies Variants,
 } as const;
@@ -102,10 +103,12 @@ export default function TeamSelector({
 }: TeamSelectorProps) {
   const [peopleCount, setPeopleCount] = useState(defaultValue);
   const [isVibrating, setIsVibrating] = useState(false);
+  const directionRef = useRef<1 | -1>(1);
 
   const handleIncrement = (e: React.MouseEvent | React.KeyboardEvent) => {
     e.preventDefault();
     if (peopleCount < MAX_TEAM_SIZE) {
+      directionRef.current = 1;
       const newCount = peopleCount + 1;
       setPeopleCount(newCount);
       onChange?.(newCount);
@@ -117,6 +120,7 @@ export default function TeamSelector({
   const handleDecrement = (e: React.MouseEvent | React.KeyboardEvent) => {
     e.preventDefault();
     if (peopleCount > 1) {
+      directionRef.current = -1;
       const newCount = peopleCount - 1;
       setPeopleCount(newCount);
       onChange?.(newCount);
@@ -127,7 +131,7 @@ export default function TeamSelector({
 
   const triggerVibration = () => {
     setIsVibrating(true);
-    setTimeout(() => setIsVibrating(false), 300);
+    setTimeout(() => setIsVibrating(false), 380);
   };
 
   const handleKeyDown = (
@@ -140,84 +144,107 @@ export default function TeamSelector({
     }
   };
 
-  const renderAvatars = () =>
-    TEAM_MEMBERS.slice(0, peopleCount).map((member, index) => (
-      <motion.div
-        animate="animate"
-        className="flex items-center justify-center"
-        exit="exit"
-        initial="initial"
-        key={member.id}
-        style={{
-          zIndex: peopleCount - index,
-          marginLeft: index === 0 ? 0 : -24,
-        }}
-        variants={animations.avatar}
-      >
-        <Image
-          alt={member.name}
-          className="rounded-full border-[0.5px] border-white/10 bg-gradient-to-b from-white/5 to-white/20 object-cover shadow-[0_8px_28px_-6px/0.2] backdrop-blur-sm transition-all duration-300 ease-fluid hover:shadow-[0_12px_32px_-8px/0.3] dark:border-white/5 dark:from-white/5 dark:to-black/20 dark:shadow-[0_8px_28px_-6px/0.3] dark:hover:shadow-[0_12px_32px_-8px/0.4]"
-          height={96}
-          src={member.avatarUrl}
-          width={96}
-        />
-      </motion.div>
-    ));
-
   return (
     <motion.div
       animate="animate"
-      className={`flex w-full flex-col items-center justify-center gap-8 ${className}`}
+      className={`flex w-full flex-col items-center justify-center ${className}`}
       exit="exit"
       initial="initial"
       variants={animations.container}
     >
-      <fieldset className="w-full">
-        <legend className="sr-only">Team size selector</legend>
-        <div className="relative flex h-24 w-full justify-center">
-          <AnimatePresence mode="popLayout">{renderAvatars()}</AnimatePresence>
-        </div>
+      <div className="w-full max-w-xs rounded-2xl border border-zinc-200/80 bg-white p-6 shadow-[0_1px_4px_rgba(0,0,0,0.06)] dark:border-white/8 dark:bg-zinc-900/60">
+        <fieldset>
+          <legend className="mb-6 w-full font-medium text-xs text-zinc-400 uppercase tracking-widest dark:text-zinc-500">
+            Team Size
+          </legend>
 
-        <motion.div
-          animate={isVibrating ? "animate" : "initial"}
-          className="mt-8 flex items-center justify-center gap-8"
-          initial="initial"
-          variants={isVibrating ? animations.vibration : undefined}
-        >
-          <button
-            aria-label="Decrease team size"
-            className="h-12 w-12 rounded-full border border-zinc-200/80 bg-gradient-to-b from-white to-zinc-50 text-zinc-900 shadow-[0_2px_8px_-2px/0.1] transition-all duration-200 ease-fluid hover:border-zinc-300 hover:shadow-[0_4px_12px_-4px/0.2] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-zinc-500/30 focus-visible:ring-offset-2 focus-visible:ring-offset-white active:from-zinc-50 active:to-zinc-100 disabled:cursor-not-allowed disabled:opacity-40 disabled:active:from-white disabled:active:to-zinc-50 disabled:hover:border-zinc-200/80 disabled:hover:shadow-[0_2px_8px_-2px/0.1] dark:border-zinc-700/80 dark:from-zinc-800 dark:to-zinc-900 dark:text-zinc-100 dark:shadow-[0_2px_8px_-2px/0.3] dark:active:from-zinc-900 dark:active:to-zinc-800 dark:disabled:active:from-zinc-800 dark:disabled:active:to-zinc-900 dark:focus-visible:ring-zinc-400/30 dark:focus-visible:ring-offset-zinc-900 dark:hover:border-zinc-600 dark:hover:shadow-[0_4px_12px_-4px/0.4] dark:disabled:hover:border-zinc-700/80 dark:disabled:hover:shadow-[0_2px_8px_-2px/0.3]"
-            disabled={peopleCount <= 1}
-            onClick={handleDecrement}
-            onKeyDown={(e) => handleKeyDown(e, "decrement")}
-            type="button"
-          >
-            <span className="select-none font-medium text-2xl">-</span>
-          </button>
+          {/* Avatar stack — all 4 always rendered, toggled via variants */}
+          <div className="mb-8 flex justify-center">
+            <motion.div className="flex items-center" layout>
+              {TEAM_MEMBERS.map((member, index) => (
+                <motion.div
+                  animate={index < peopleCount ? "visible" : "hidden"}
+                  className="flex items-center justify-center"
+                  initial={index < defaultValue ? "visible" : "hidden"}
+                  key={member.id}
+                  style={{
+                    marginLeft: index === 0 ? 0 : -AVATAR_OVERLAP,
+                    zIndex: MAX_TEAM_SIZE - index,
+                  }}
+                  variants={animations.avatar}
+                >
+                  <Image
+                    alt={member.name}
+                    className="size-12 rounded-full border border-white/60 bg-linear-to-b from-white/5 to-white/20 object-cover shadow-[0_4px_12px_rgba(0,0,0,0.12)] dark:border-white/10 dark:shadow-[0_4px_12px_rgba(0,0,0,0.3)]"
+                    height={96}
+                    src={member.avatarUrl}
+                    width={96}
+                  />
+                </motion.div>
+              ))}
+            </motion.div>
+          </div>
 
-          <motion.output
-            animate="animate"
-            aria-label={`Current team size: ${peopleCount}`}
-            className="select-none bg-gradient-to-b from-zinc-800 to-zinc-600 bg-clip-text font-medium text-2xl text-transparent dark:from-zinc-200 dark:to-zinc-400"
-            initial="initial"
-            key={peopleCount}
-            variants={animations.number}
+          {/* Controls row */}
+          <motion.div
+            animate={isVibrating ? "shake" : "idle"}
+            className="flex items-center justify-center gap-6"
+            initial="idle"
+            variants={animations.vibration}
           >
-            {peopleCount}
-          </motion.output>
+            <button
+              aria-label="Decrease team size"
+              className="flex h-9 w-9 items-center justify-center rounded-xl border border-zinc-200/80 bg-linear-to-b from-white to-zinc-50 text-zinc-500 shadow-[0_1px_3px_rgba(0,0,0,0.08)] transition-all duration-200 hover:border-zinc-300 hover:text-zinc-900 hover:shadow-[0_2px_6px_rgba(0,0,0,0.12)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-zinc-400/40 focus-visible:ring-offset-2 active:from-zinc-50 active:to-zinc-100 disabled:cursor-not-allowed disabled:opacity-35 dark:border-white/8 dark:from-zinc-800 dark:to-zinc-900 dark:text-zinc-500 dark:focus-visible:ring-zinc-500/40 dark:focus-visible:ring-offset-zinc-900 dark:hover:border-white/16 dark:hover:text-zinc-200"
+              disabled={peopleCount <= 1}
+              onClick={handleDecrement}
+              onKeyDown={(e) => handleKeyDown(e, "decrement")}
+              type="button"
+            >
+              <span className="select-none font-medium leading-none">−</span>
+            </button>
 
-          <button
-            aria-label="Increase team size"
-            className="h-12 w-12 rounded-full border border-zinc-200/80 bg-gradient-to-b from-white to-zinc-50 text-zinc-900 shadow-[0_2px_8px_-2px/0.1] transition-all duration-200 ease-fluid hover:border-zinc-300 hover:shadow-[0_4px_12px_-4px/0.2] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-zinc-500/30 focus-visible:ring-offset-2 focus-visible:ring-offset-white active:from-zinc-50 active:to-zinc-100 disabled:cursor-not-allowed disabled:opacity-40 disabled:active:from-white disabled:active:to-zinc-50 disabled:hover:border-zinc-200/80 disabled:hover:shadow-[0_2px_8px_-2px/0.1] dark:border-zinc-700/80 dark:from-zinc-800 dark:to-zinc-900 dark:text-zinc-100 dark:shadow-[0_2px_8px_-2px/0.3] dark:active:from-zinc-900 dark:active:to-zinc-800 dark:disabled:active:from-zinc-800 dark:disabled:active:to-zinc-900 dark:focus-visible:ring-zinc-400/30 dark:focus-visible:ring-offset-zinc-900 dark:hover:border-zinc-600 dark:hover:shadow-[0_4px_12px_-4px/0.4] dark:disabled:hover:border-zinc-700/80 dark:disabled:hover:shadow-[0_2px_8px_-2px/0.3]"
-            disabled={peopleCount >= MAX_TEAM_SIZE}
-            onClick={handleIncrement}
-            onKeyDown={(e) => handleKeyDown(e, "increment")}
-            type="button"
-          >
-            <span className="select-none font-medium text-2xl">+</span>
-          </button>
-        </motion.div>
-      </fieldset>
+            {/* Counter + label */}
+            <div className="flex min-w-16 flex-col items-center">
+              <div className="relative h-10 overflow-hidden">
+                <AnimatePresence initial={false} mode="popLayout">
+                  <motion.output
+                    animate={{ opacity: 1, y: 0 }}
+                    aria-label={`Current team size: ${peopleCount}`}
+                    className="block select-none bg-linear-to-b from-zinc-800 to-zinc-500 bg-clip-text font-semibold text-3xl text-transparent dark:from-zinc-100 dark:to-zinc-400"
+                    exit={{
+                      opacity: 0,
+                      y: directionRef.current * -16,
+                      transition: { duration: 0.16, ease: "easeIn" },
+                    }}
+                    initial={{
+                      opacity: 0,
+                      y: directionRef.current * 16,
+                    }}
+                    key={peopleCount}
+                    transition={{ duration: 0.22, ease: "easeOut" }}
+                  >
+                    {peopleCount}
+                  </motion.output>
+                </AnimatePresence>
+              </div>
+              <span className="text-xs text-zinc-400 dark:text-zinc-500">
+                {peopleCount === 1 ? "member" : "members"}
+              </span>
+            </div>
+
+            <button
+              aria-label="Increase team size"
+              className="flex h-9 w-9 items-center justify-center rounded-xl border border-zinc-200/80 bg-linear-to-b from-white to-zinc-50 text-zinc-500 shadow-[0_1px_3px_rgba(0,0,0,0.08)] transition-all duration-200 hover:border-zinc-300 hover:text-zinc-900 hover:shadow-[0_2px_6px_rgba(0,0,0,0.12)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-zinc-400/40 focus-visible:ring-offset-2 active:from-zinc-50 active:to-zinc-100 disabled:cursor-not-allowed disabled:opacity-35 dark:border-white/8 dark:from-zinc-800 dark:to-zinc-900 dark:text-zinc-500 dark:focus-visible:ring-zinc-500/40 dark:focus-visible:ring-offset-zinc-900 dark:hover:border-white/16 dark:hover:text-zinc-200"
+              disabled={peopleCount >= MAX_TEAM_SIZE}
+              onClick={handleIncrement}
+              onKeyDown={(e) => handleKeyDown(e, "increment")}
+              type="button"
+            >
+              <span className="select-none font-medium leading-none">+</span>
+            </button>
+          </motion.div>
+        </fieldset>
+      </div>
     </motion.div>
   );
 }
