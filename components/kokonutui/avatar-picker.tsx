@@ -3,15 +3,17 @@
 /**
  * @author: @dorianbaffier
  * @description: Avatar Picker
- * @version: 1.0.0
- * @date: 2025-06-26
+ * @version: 2.0.0
+ * @date: 2026-02-22
  * @license: MIT
  * @website: https://kokonutui.com
  * @github: https://github.com/kokonut-labs/kokonutui
  */
 
-import { Check, ChevronRight, Crown, User2 } from "lucide-react";
-import { AnimatePresence, motion } from "motion/react";
+import type { Variants } from "motion/react";
+import type { ReactNode } from "react";
+import { Check, ChevronRight, User2 } from "lucide-react";
+import { AnimatePresence, motion, useReducedMotion } from "motion/react";
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
@@ -20,9 +22,17 @@ import { cn } from "@/lib/utils";
 
 interface Avatar {
   id: number;
-  svg: React.ReactNode;
+  svg: ReactNode;
   alt: string;
 }
+
+// RGB values for the per-avatar color ring on the stage
+const AVATAR_RGB: Record<number, string> = {
+  1: "255, 0, 91",
+  2: "255, 125, 16",
+  3: "255, 0, 91",
+  4: "137, 252, 179",
+};
 
 const avatars: Avatar[] = [
   {
@@ -94,7 +104,7 @@ const avatars: Avatar[] = [
     id: 2,
     svg: (
       <svg
-        aria-label="Avatar 4"
+        aria-label="Avatar 2"
         fill="none"
         height="40"
         role="img"
@@ -102,7 +112,7 @@ const avatars: Avatar[] = [
         width="40"
         xmlns="http://www.w3.org/2000/svg"
       >
-        <title>Avatar 4</title>
+        <title>Avatar 2</title>
         <mask
           height="36"
           id=":R4mrttb:"
@@ -153,13 +163,13 @@ const avatars: Avatar[] = [
         </g>
       </svg>
     ),
-    alt: "Avatar 4",
+    alt: "Avatar 2",
   },
   {
     id: 3,
     svg: (
       <svg
-        aria-label="Avatar 2"
+        aria-label="Avatar 3"
         fill="none"
         height="40"
         role="img"
@@ -167,7 +177,7 @@ const avatars: Avatar[] = [
         width="40"
         xmlns="http://www.w3.org/2000/svg"
       >
-        <title>Avatar 2</title>
+        <title>Avatar 3</title>
         <mask
           height="36"
           id=":r11c:"
@@ -213,13 +223,13 @@ const avatars: Avatar[] = [
         </g>
       </svg>
     ),
-    alt: "Avatar 2",
+    alt: "Avatar 3",
   },
   {
     id: 4,
     svg: (
       <svg
-        aria-label="Avatar 3"
+        aria-label="Avatar 4"
         fill="none"
         height="40"
         role="img"
@@ -227,7 +237,7 @@ const avatars: Avatar[] = [
         width="40"
         xmlns="http://www.w3.org/2000/svg"
       >
-        <title>Avatar 3</title>
+        <title>Avatar 4</title>
         <mask
           height="36"
           id=":r1gg:"
@@ -278,7 +288,7 @@ const avatars: Avatar[] = [
         </g>
       </svg>
     ),
-    alt: "Avatar 3",
+    alt: "Avatar 4",
   },
 ];
 
@@ -287,89 +297,22 @@ interface ProfileSetupProps {
   className?: string;
 }
 
-const mainAvatarVariants = {
-  initial: { scale: 0.9, opacity: 0 },
+const containerVariants: Variants = {
+  initial: { opacity: 0 },
   animate: {
-    scale: 1,
     opacity: 1,
-    transition: { type: "spring", stiffness: 300, damping: 25 },
-  },
-  exit: {
-    scale: 0.9,
-    opacity: 0,
-    transition: { duration: 0.2 },
+    transition: { staggerChildren: 0.06, delayChildren: 0.05 },
   },
 };
 
-const pickerVariants = {
-  container: {
-    initial: { opacity: 0 },
-    animate: {
-      opacity: 1,
-      transition: { staggerChildren: 0.05, delayChildren: 0.1 },
-    },
-  },
-  item: {
-    initial: { scale: 0.8, opacity: 0 },
-    animate: {
-      scale: 1,
-      opacity: 1,
-      transition: { type: "spring", stiffness: 400, damping: 25 },
-    },
+const thumbnailVariants: Variants = {
+  initial: { opacity: 0, y: 6 },
+  animate: {
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.28, ease: "easeOut" },
   },
 };
-
-const DetailRing = () => (
-  <div className="absolute inset-0 rounded-full">
-    <svg
-      aria-label="Decorative outer ring animation"
-      className="absolute inset-0 h-full w-full animate-[spin_30s_linear_infinite]"
-      viewBox="0 0 100 100"
-    >
-      <title>Decorative outer spinning ring</title>
-      <defs>
-        <linearGradient id="gradient" x1="0%" x2="100%" y1="0%" y2="100%">
-          <stop offset="0%" stopColor="hsl(var(--primary))" stopOpacity="0.3" />
-          <stop
-            offset="50%"
-            stopColor="hsl(var(--primary))"
-            stopOpacity="0.1"
-          />
-          <stop
-            offset="100%"
-            stopColor="hsl(var(--primary))"
-            stopOpacity="0.3"
-          />
-        </linearGradient>
-      </defs>
-      <circle
-        cx="50"
-        cy="50"
-        fill="none"
-        r="48"
-        stroke="url(#gradient)"
-        strokeDasharray="1,3"
-        strokeWidth="0.5"
-      />
-    </svg>
-    <svg
-      aria-label="Decorative inner ring animation"
-      className="absolute inset-0 h-full w-full animate-[spin_20s_linear_infinite_reverse]"
-      viewBox="0 0 100 100"
-    >
-      <title>Decorative inner spinning ring</title>
-      <circle
-        cx="50"
-        cy="50"
-        fill="none"
-        r="45"
-        stroke="url(#gradient)"
-        strokeDasharray="1,2"
-        strokeWidth="0.25"
-      />
-    </svg>
-  </div>
-);
 
 export default function ProfileSetup({
   onComplete,
@@ -377,13 +320,11 @@ export default function ProfileSetup({
 }: ProfileSetupProps) {
   const [selectedAvatar, setSelectedAvatar] = useState<Avatar>(avatars[0]);
   const [username, setUsername] = useState("");
-  const [rotationCount, setRotationCount] = useState(0);
-  const [isHovering, setIsHovering] = useState<number | null>(null);
   const [isFocused, setIsFocused] = useState(false);
+  const shouldReduceMotion = useReducedMotion();
 
   const handleAvatarSelect = (avatar: Avatar) => {
     if (avatar.id === selectedAvatar.id) return;
-    setRotationCount((prev) => prev + 720);
     setSelectedAvatar(avatar);
   };
 
@@ -398,149 +339,191 @@ export default function ProfileSetup({
 
   const isValid = username.trim().length >= 3;
   const showError = username.trim().length > 0 && username.trim().length < 3;
+  const rgb = AVATAR_RGB[selectedAvatar.id];
 
   return (
     <Card
       className={cn(
-        "relative mx-auto w-full max-w-[400px] overflow-hidden border-primary/10 bg-gradient-to-b from-background/80 to-background/40 backdrop-blur-sm",
+        "relative mx-auto w-full max-w-[400px] border-border bg-card",
         className
       )}
     >
-      <div className="-top-px absolute inset-x-0 h-px w-full bg-gradient-to-r from-transparent via-primary/30 to-transparent" />
-
       <CardContent className="p-8">
         <div className="space-y-8">
           {/* Header */}
-          <div className="space-y-2 text-center">
-            <h2 className="bg-gradient-to-br from-primary/90 to-primary/60 bg-clip-text font-bold text-2xl text-transparent">
-              Create Your Profile
+          <div className="space-y-1 text-center">
+            <h2 className="font-semibold text-xl tracking-tight">
+              Pick Your Avatar
             </h2>
             <p className="text-muted-foreground text-sm">
-              Choose an avatar and enter your username to begin
+              Choose one to get started
             </p>
           </div>
 
-          {/* Avatar Section */}
-          <div className="relative flex flex-col items-center">
-            {/* Main Avatar */}
+          {/* Avatar Stage */}
+          <div className="flex flex-col items-center gap-4">
+            {/*
+             * Two-div approach: outer div holds the animated color ring
+             * (no overflow-hidden so box-shadow renders cleanly),
+             * inner div clips the avatar SVG.
+             * scale-[4] fills the 160px circle with the avatar's background.
+             */}
+            <div className="relative h-40 w-40">
+              {/* Animated per-avatar color ring */}
+              <motion.div
+                animate={{
+                  boxShadow: `0 0 0 2px rgba(${rgb}, 0.55), 0 6px 24px rgba(${rgb}, 0.18)`,
+                }}
+                aria-hidden="true"
+                className="pointer-events-none absolute inset-0 rounded-full"
+                transition={
+                  shouldReduceMotion
+                    ? { duration: 0 }
+                    : { duration: 0.45, ease: "easeOut" }
+                }
+              />
+
+              {/* Avatar circle — clips content */}
+              <div className="relative h-full w-full overflow-hidden rounded-full">
+                <AnimatePresence mode="wait">
+                  <motion.div
+                    key={selectedAvatar.id}
+                    animate={{ opacity: 1 }}
+                    className="absolute inset-0 flex items-center justify-center"
+                    exit={{ opacity: 0 }}
+                    initial={{ opacity: 0 }}
+                    transition={
+                      shouldReduceMotion
+                        ? { duration: 0 }
+                        : { duration: 0.2, ease: "easeOut" }
+                    }
+                  >
+                    {/* scale-[4]: 40px SVG × 4 = 160px, fills the circle */}
+                    <div className="scale-[4] transform">
+                      {selectedAvatar.svg}
+                    </div>
+                  </motion.div>
+                </AnimatePresence>
+              </div>
+            </div>
+
+            {/* Avatar name — fades with selection */}
+            <AnimatePresence mode="wait">
+              <motion.span
+                animate={{ opacity: 1 }}
+                className="text-[11px] tracking-[0.12em] text-muted-foreground uppercase"
+                exit={{ opacity: 0 }}
+                initial={{ opacity: 0 }}
+                key={selectedAvatar.id}
+                transition={
+                  shouldReduceMotion
+                    ? { duration: 0 }
+                    : { duration: 0.16, ease: "easeOut" }
+                }
+              >
+                {selectedAvatar.alt}
+              </motion.span>
+            </AnimatePresence>
+
+            {/* Thumbnail strip */}
             <motion.div
               animate="animate"
-              className="relative h-28 w-28"
+              className="flex gap-3"
               initial="initial"
-              variants={mainAvatarVariants as any}
+              variants={containerVariants}
             >
-              <DetailRing />
-
-              <div className="absolute inset-0 rounded-full bg-gradient-to-b from-primary/10 to-transparent opacity-50 blur-md" />
-
-              <div className="relative h-full w-full overflow-hidden rounded-full border border-primary/20 bg-gradient-to-b from-background/80 to-background shadow-lg shadow-primary/5">
-                <motion.div
-                  animate={{ rotate: rotationCount }}
-                  className="absolute inset-0 flex items-center justify-center"
-                  transition={{
-                    duration: 0.7,
-                    ease: [0.4, 0, 0.2, 1],
-                  }}
-                >
-                  <div className="scale-[2.8] transform">
-                    {selectedAvatar.svg}
-                  </div>
-                </motion.div>
-                <div className="absolute inset-0 bg-gradient-to-b from-transparent to-background/20" />
-              </div>
-
-              <div className="-bottom-1 -right-1 absolute flex h-7 w-7 items-center justify-center rounded-full border border-primary/20 bg-primary/10 backdrop-blur-sm">
-                <Crown className="h-4 w-4 text-primary" />
-              </div>
-            </motion.div>
-
-            {/* Avatar Grid */}
-            <motion.div
-              animate="animate"
-              className="mt-6 grid w-full max-w-[240px] grid-cols-4 gap-3"
-              initial="initial"
-              variants={pickerVariants.container}
-            >
-              {avatars.map((avatar) => (
-                <motion.button
-                  aria-label={`Select ${avatar.alt}`}
-                  aria-pressed={selectedAvatar.id === avatar.id}
-                  className={cn(
-                    "group/avatar relative h-12 w-12 rounded-full",
-                    "transition-all duration-300",
-                    selectedAvatar.id === avatar.id
-                      ? "ring-2 ring-primary/30 ring-offset-2 ring-offset-background"
-                      : "hover:ring-2 hover:ring-primary/20 hover:ring-offset-2 hover:ring-offset-background"
-                  )}
-                  key={avatar.id}
-                  onClick={() => handleAvatarSelect(avatar)}
-                  onMouseEnter={() => setIsHovering(avatar.id)}
-                  onMouseLeave={() => setIsHovering(null)}
-                  variants={pickerVariants.item as any}
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}
-                >
-                  <AnimatePresence>
-                    {isHovering === avatar.id && (
-                      <motion.div
-                        animate={{ opacity: 1 }}
-                        className="absolute inset-0 rounded-full bg-primary/10"
-                        exit={{ opacity: 0 }}
-                        initial={{ opacity: 0 }}
-                      />
+              {avatars.map((avatar) => {
+                const isSelected = selectedAvatar.id === avatar.id;
+                return (
+                  <motion.button
+                    aria-label={`Select ${avatar.alt}`}
+                    aria-pressed={isSelected}
+                    className={cn(
+                      "relative h-14 w-14 overflow-hidden rounded-xl border bg-muted transition-[opacity,box-shadow] duration-200 ease-out",
+                      isSelected
+                        ? "border-foreground/20 opacity-100 ring-2 ring-foreground/70 ring-offset-2 ring-offset-background"
+                        : "border-border opacity-50 hover:opacity-100"
                     )}
-                  </AnimatePresence>
-
-                  <div className="relative h-full w-full overflow-hidden rounded-full">
-                    <div className="absolute inset-0 bg-gradient-to-b from-background/50 to-background opacity-0 transition-opacity duration-300 group-hover/avatar:opacity-100" />
+                    key={avatar.id}
+                    onClick={() => handleAvatarSelect(avatar)}
+                    type="button"
+                    variants={thumbnailVariants}
+                    whileHover={shouldReduceMotion ? {} : { scale: 1.06 }}
+                    whileTap={shouldReduceMotion ? {} : { scale: 0.94 }}
+                  >
                     <div className="absolute inset-0 flex items-center justify-center">
-                      <div className="scale-[2.2] transform">{avatar.svg}</div>
+                      <div className="scale-[2.3] transform">{avatar.svg}</div>
                     </div>
-                  </div>
-
-                  {selectedAvatar.id === avatar.id && (
-                    <div className="-bottom-0.5 -right-0.5 absolute flex h-5 w-5 items-center justify-center rounded-full bg-primary/10 backdrop-blur-sm">
-                      <Check className="h-3 w-3 text-primary" />
-                    </div>
-                  )}
-                </motion.button>
-              ))}
+                    {isSelected && (
+                      <div className="absolute -right-0.5 -bottom-0.5 flex h-5 w-5 items-center justify-center rounded-full bg-foreground">
+                        <Check
+                          aria-hidden="true"
+                          className="h-3 w-3 text-background"
+                        />
+                      </div>
+                    )}
+                  </motion.button>
+                );
+              })}
             </motion.div>
           </div>
 
-          {/* Username Input */}
-          <div className="space-y-6">
-            <div className="relative">
+          {/* Username field */}
+          <div className="space-y-4">
+            <div className="space-y-2">
+              <div className="flex items-center justify-between">
+                <label className="font-medium text-sm" htmlFor="username">
+                  Username
+                </label>
+                <span
+                  className={cn(
+                    "text-xs tabular-nums transition-colors duration-200 ease-out",
+                    username.length >= 18
+                      ? "text-amber-500 dark:text-amber-400"
+                      : "text-muted-foreground/50"
+                  )}
+                >
+                  {username.length}/20
+                </span>
+              </div>
+
               <div className="relative">
                 <Input
+                  autoComplete="username"
                   className={cn(
-                    "h-12 pl-10 text-base transition-all duration-200",
-                    isFocused && "ring-2 ring-primary/20",
+                    "h-10 pl-9 text-sm",
                     showError &&
-                      "ring-2 ring-destructive/50 focus-visible:ring-destructive"
+                      "border-destructive/50 focus-visible:ring-destructive"
                   )}
+                  id="username"
                   maxLength={20}
+                  name="username"
                   onBlur={() => setIsFocused(false)}
                   onChange={(e) => setUsername(e.target.value)}
                   onFocus={() => setIsFocused(true)}
-                  placeholder="Enter your username"
+                  placeholder="your_username…"
+                  spellCheck={false}
                   type="text"
                   value={username}
                 />
                 <User2
+                  aria-hidden="true"
                   className={cn(
-                    "-translate-y-1/2 absolute top-1/2 left-3 h-5 w-5 transition-colors duration-200",
-                    isFocused ? "text-primary" : "text-muted-foreground"
+                    "absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 transition-colors duration-200 ease-out",
+                    isFocused ? "text-foreground" : "text-muted-foreground"
                   )}
                 />
               </div>
+
               <AnimatePresence>
                 {showError && (
                   <motion.p
                     animate={{ opacity: 1, y: 0 }}
-                    className="absolute mt-2 ml-1 text-destructive text-xs"
-                    exit={{ opacity: 0, y: -10 }}
-                    initial={{ opacity: 0, y: -10 }}
+                    className="ml-0.5 text-xs text-destructive"
+                    exit={{ opacity: 0, y: -4 }}
+                    initial={{ opacity: 0, y: -4 }}
+                    role="alert"
+                    transition={{ duration: 0.15, ease: "easeOut" }}
                   >
                     Username must be at least 3 characters
                   </motion.p>
@@ -549,13 +532,16 @@ export default function ProfileSetup({
             </div>
 
             <Button
-              className="group relative h-12 w-full text-base"
+              className="group h-10 w-full text-sm"
               disabled={!isValid}
               onClick={handleSubmit}
+              type="button"
             >
-              <span className="relative z-10">Start Adventure</span>
-              <ChevronRight className="relative z-10 ml-2 h-5 w-5 transition-transform group-hover:translate-x-1" />
-              <div className="absolute inset-0 rounded-md bg-gradient-to-r from-primary/0 via-primary/10 to-primary/0 opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
+              Get Started
+              <ChevronRight
+                aria-hidden="true"
+                className="ml-1 h-4 w-4 transition-transform duration-200 ease-out group-hover:translate-x-0.5"
+              />
             </Button>
           </div>
         </div>
