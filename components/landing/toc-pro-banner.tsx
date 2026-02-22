@@ -87,7 +87,7 @@ export default function TocProBanner() {
           <ArrowUpRight className="h-3 w-3 transition-transform duration-200 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
         </div>
         <span className="text-[11px] text-muted-foreground">
-          Trusted by 10k+ users
+          Trusted by 10k+ users worldwide
         </span>
       </div>
 
