@@ -1,13 +1,17 @@
+import HowItWorks from "@/components/landing/how-it-works";
 import { HeroSection } from "@/components/landing/hero";
 import ProSection from "@/components/landing/pro-section";
-// import TestimonialsSection from "@/components/landing/testimonials";
+import StatsBar from "@/components/landing/stats-bar";
+import TestimonialsSection from "@/components/landing/testimonials";
 
 export default function Home() {
   return (
     <>
       <HeroSection />
-      {/* <TestimonialsSection /> */}
+      <StatsBar />
       <ProSection />
+      <HowItWorks />
+      <TestimonialsSection />
     </>
   );
 }
