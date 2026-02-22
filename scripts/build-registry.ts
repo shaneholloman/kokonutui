@@ -85,8 +85,9 @@ const extractFrontmatter = (
 
 const getComponentsInfo = async (): Promise<ComponentInfo[]> => {
   try {
-    const mdxFiles = await glob("content/docs/components/*.mdx", {
+    const mdxFiles = await glob("content/docs/**/*.mdx", {
       cwd: REGISTRY_BASE_PATH,
+      ignore: ["content/docs/index.mdx"],
     });
     const components: ComponentInfo[] = [];
 
