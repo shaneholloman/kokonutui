@@ -30,6 +30,7 @@ export default async function Page(props: PageProps<"/docs/[[...slug]]">) {
 
   return (
     <DocsPage
+      breadcrumb={{ className: "ml-8" }}
       footer={{ enabled: false }}
       full={page.data.full}
       tableOfContent={tableOfContent}
