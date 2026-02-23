@@ -31,10 +31,10 @@ const DEFAULT_GLASS_FILTER_SCALE = 30;
 const BUTTON_GLASS_FILTER_SCALE = 70;
 
 // Shared glass filter component
-type GlassFilterProps = {
+interface GlassFilterProps {
   id: string;
   scale?: number;
-};
+}
 
 const GlassFilter = React.memo(
   ({ id, scale = DEFAULT_GLASS_FILTER_SCALE }: GlassFilterProps) => (
@@ -116,7 +116,7 @@ function LiquidButton({
           )}
         />
         <div
-          className="-z-10 pointer-events-none absolute inset-0 isolate overflow-hidden rounded-md"
+          className="pointer-events-none absolute inset-0 isolate -z-10 overflow-hidden rounded-md"
           style={{ backdropFilter: `url("#${filterId}")` }}
         />
         <span className="relative z-10">{children}</span>
@@ -172,7 +172,7 @@ function LiquidGlassCard({
       {glassEffect && (
         <>
           <div
-            className="-z-10 pointer-events-none absolute inset-0 overflow-hidden rounded-lg"
+            className="pointer-events-none absolute inset-0 -z-10 overflow-hidden rounded-lg"
             style={{ backdropFilter: `url("#${filterId}")` }}
           />
           <GlassFilter id={filterId} scale={DEFAULT_GLASS_FILTER_SCALE} />
@@ -202,9 +202,9 @@ const formatTime = (timeInSeconds: number): string => {
   return `${minutes}:${seconds.toString().padStart(2, "0")}`;
 };
 
-type VolumeBarsProps = {
+interface VolumeBarsProps {
   isPlaying: boolean;
-};
+}
 
 const VolumeBars = React.memo(({ isPlaying }: VolumeBarsProps) => {
   const bars = Array.from({ length: VOLUME_BAR_COUNT }, (_, i) => ({
@@ -233,11 +233,11 @@ const VolumeBars = React.memo(({ isPlaying }: VolumeBarsProps) => {
 });
 VolumeBars.displayName = "VolumeBars";
 
-type ProgressBarProps = {
+interface ProgressBarProps {
   currentTime: number;
   totalDuration: number;
   onSeek: (newTime: number) => void;
-};
+}
 
 const ProgressBar = React.memo(
   ({ currentTime, totalDuration, onSeek }: ProgressBarProps) => {

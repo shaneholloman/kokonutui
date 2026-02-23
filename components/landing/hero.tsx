@@ -143,7 +143,7 @@ export function HeroSection() {
 
         <motion.div
           animate={{ opacity: 1, y: 0, scale: 1 }}
-          className="-mt-4 relative grid w-full grid-cols-1 gap-6 md:mt-0 md:grid-cols-2"
+          className="relative -mt-4 grid w-full grid-cols-1 gap-6 md:mt-0 md:grid-cols-2"
           initial={{ opacity: 0, y: 20, scale: 0.95 }}
           transition={{ duration: 0.5, delay: 0.4 }}
         >

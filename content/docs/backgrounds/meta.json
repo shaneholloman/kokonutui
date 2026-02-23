@@ -3,6 +3,7 @@
   "pages": [
     "beams-background",
     "background-paths",
-    "shape-hero"
+    "shape-hero",
+    "flow-field"
   ]
 }

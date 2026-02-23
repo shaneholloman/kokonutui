@@ -26,7 +26,7 @@ interface SlideTextButtonProps
 export default function SlideTextButton({
   text = "Browse Components",
   hoverText,
-  href = "/docs/components/liquid-glass-card",
+  href = "/docs/cards/card",
   className,
   variant = "default",
   ...props
@@ -52,7 +52,7 @@ export default function SlideTextButton({
         href={href}
         {...props}
       >
-        <span className="group-hover:-translate-y-full relative inline-block transition-transform duration-300 ease-in-out">
+        <span className="relative inline-block transition-transform duration-300 ease-in-out group-hover:-translate-y-full">
           <span className="flex items-center gap-2 opacity-100 transition-opacity duration-300 group-hover:opacity-0">
             <span className="font-medium">{text}</span>
           </span>

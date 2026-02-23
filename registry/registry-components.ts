@@ -195,6 +195,17 @@ export const component: Registry = [
     ],
   },
   {
+    name: "flow-field",
+    type: "registry:component",
+    dependencies: ["motion"],
+    files: [
+      {
+        path: "components/kokonutui/flow-field.tsx",
+        type: "registry:component",
+      },
+    ],
+  },
+  {
     name: "apple-activity-card",
     type: "registry:component",
     dependencies: ["motion"],

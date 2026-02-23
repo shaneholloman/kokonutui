@@ -200,9 +200,8 @@ button {
 }
 
 /* New badge styling */
-a[href="/docs/components/profile-dropdown"]::after,
-a[href="/docs/components/morphic-navbar"]::after,
-a[href="/docs/components/spotlight-cards"]::after {
+a[href="/docs/cards/spotlight-cards"]::after,
+a[href="/docs/backgrounds/flow-field"]::after {
   content: "New";
   position: absolute;
   right: 0.2rem;
@@ -219,9 +218,8 @@ a[href="/docs/components/spotlight-cards"]::after {
 }
 
 /* Dark mode adjustments */
-.dark a[href="/docs/components/profile-dropdown"]::after,
-.dark a[href="/docs/components/morphic-navbar"]::after,
-.dark a[href="/docs/components/spotlight-cards"]::after {
+.dark a[href="/docs/cards/spotlight-cards"]::after,
+.dark a[href="/docs/backgrounds/flow-field"]::after {
   background-color: rgba(52, 211, 153, 0.2);
   color: rgb(16, 185, 129);
   border: 1px solid rgba(255, 255, 255, 0.2);
