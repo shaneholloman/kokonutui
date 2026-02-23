@@ -52,6 +52,9 @@ https://kokonutui.com/docs/components/dynamic-text
 **File Upload** - File upload with special uploading animation. Make sure to try the drag and drop.
 https://kokonutui.com/docs/components/file-upload
 
+**Flow Field** - Canvas particle flow field background — organic noise-driven streams of glowing light.
+https://kokonutui.com/docs/components/flow-field
+
 **Glitch Text** - Why not?
 https://kokonutui.com/docs/components/glitch-text
 
