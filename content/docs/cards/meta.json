@@ -1,7 +1,7 @@
 {
   "title": "Cards",
   "pages": [
-    "card",
+    "card-flip",
     "card-stack",
     "liquid-glass-card",
     "apple-activity-card",
@@ -9,6 +9,7 @@
     "tweet-card",
     "bento-grid",
     "spotlight-cards",
-    "currency-transfer"
+    "currency-transfer",
+    "carousel-cards"
   ]
 }

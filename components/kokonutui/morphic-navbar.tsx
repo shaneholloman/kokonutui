@@ -4,23 +4,29 @@ import clsx from "clsx";
 import Link from "next/link";
 import { useState } from "react";
 
-const navItems = {
-  "/": {
-    name: "home",
-  },
-  "/works": {
-    name: "works",
-  },
-  "/blog": {
-    name: "blog",
-  },
-  "/about": {
-    name: "about",
-  },
+interface NavItem {
+  name: string;
+}
+
+interface MorphicNavbarProps {
+  items?: Record<string, NavItem>;
+  defaultPath?: string;
+  className?: string;
+}
+
+const DEFAULT_NAV_ITEMS: Record<string, NavItem> = {
+  "/": { name: "home" },
+  "/works": { name: "works" },
+  "/blog": { name: "blog" },
+  "/about": { name: "about" },
 };
 
-export function MorphicNavbar() {
-  const [activePath, setActivePath] = useState("/");
+export function MorphicNavbar({
+  items = DEFAULT_NAV_ITEMS,
+  defaultPath = "/",
+  className,
+}: MorphicNavbarProps) {
+  const [activePath, setActivePath] = useState(defaultPath);
 
   const isActiveLink = (path: string) => {
     if (path === "/") {
@@ -30,10 +36,10 @@ export function MorphicNavbar() {
   };
 
   return (
-    <nav className="mx-auto max-w-4xl px-4 py-2">
+    <nav className={clsx("mx-auto max-w-4xl px-4 py-2", className)}>
       <div className="flex items-center justify-center">
         <div className="glass flex items-center justify-between overflow-hidden rounded-xl">
-          {Object.entries(navItems).map(([path, { name }], index, array) => {
+          {Object.entries(items).map(([path, { name }], index, array) => {
             const isActive = isActiveLink(path);
             const isFirst = index === 0;
             const isLast = index === array.length - 1;

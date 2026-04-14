@@ -1,6 +1,6 @@
 "use client";
 
-import { useCopyToClipboard } from "@/hooks/use-copy-to-clipboard";
+import type { LucideIcon } from "lucide-react";
 import {
   CheckIcon,
   CopyIcon,
@@ -8,9 +8,8 @@ import {
   PaletteIcon,
   TerminalIcon,
 } from "lucide-react";
-import type { LucideIcon } from "lucide-react";
 import { motion } from "motion/react";
-import type React from "react";
+import { useCopyToClipboard } from "@/hooks/use-copy-to-clipboard";
 
 const CLI_COMMAND = "npx shadcn@latest add @kokonutui/<name>";
 

@@ -439,7 +439,7 @@ export default function FileUpload({
       role="complementary"
     >
       <div className="group relative w-full rounded-xl bg-white p-0.5 ring-1 ring-gray-200 dark:bg-black dark:ring-white/10">
-        <div className="-top-px absolute inset-x-0 h-px w-full bg-gradient-to-r from-transparent via-blue-500/20 to-transparent" />
+        <div className="absolute inset-x-0 -top-px h-px w-full bg-gradient-to-r from-transparent via-blue-500/20 to-transparent" />
 
         <div className="relative w-full rounded-[10px] bg-gray-50/50 p-1.5 dark:bg-white/[0.02]">
           <div
@@ -461,7 +461,7 @@ export default function FileUpload({
               <div className="absolute inset-[20%] animate-pulse rounded-lg bg-blue-500/5 transition-all duration-300" />
             </div>
 
-            <div className="-right-4 -top-4 absolute h-8 w-8 bg-gradient-to-br from-blue-500/20 to-transparent opacity-0 blur-md transition-opacity duration-500 group-hover:opacity-100" />
+            <div className="absolute -top-4 -right-4 h-8 w-8 bg-gradient-to-br from-blue-500/20 to-transparent opacity-0 blur-md transition-opacity duration-500 group-hover:opacity-100" />
 
             <div className="relative h-[240px]">
               <AnimatePresence mode="wait">
@@ -564,7 +564,7 @@ export default function FileUpload({
               {error && (
                 <motion.div
                   animate={{ opacity: 1, y: 0 }}
-                  className="-translate-x-1/2 absolute bottom-4 left-1/2 transform rounded-lg border border-red-500/20 bg-red-500/10 px-4 py-2"
+                  className="absolute bottom-4 left-1/2 -translate-x-1/2 transform rounded-lg border border-red-500/20 bg-red-500/10 px-4 py-2"
                   exit={{ opacity: 0, y: -10 }}
                   initial={{ opacity: 0, y: 10 }}
                 >

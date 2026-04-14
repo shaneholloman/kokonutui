@@ -38,10 +38,26 @@ interface ToolbarItem {
 }
 
 interface ToolbarProps {
+  items?: ToolbarItem[];
+  defaultSelected?: string;
   className?: string;
   activeColor?: string;
-  onSearch?: (value: string) => void;
+  onSelect?: (itemId: string) => void;
 }
+
+const DEFAULT_TOOLBAR_ITEMS: ToolbarItem[] = [
+  { id: "select", title: "Select", icon: MousePointer2 },
+  { id: "move", title: "Move", icon: Move },
+  { id: "shapes", title: "Shapes", icon: Shapes },
+  { id: "layers", title: "Layers", icon: Layers },
+  { id: "frame", title: "Frame", icon: Frame },
+  { id: "properties", title: "Properties", icon: SlidersHorizontal },
+  { id: "export", title: "Export", icon: FileDown },
+  { id: "share", title: "Share", icon: Share2 },
+  { id: "notifications", title: "Notifications", icon: Bell },
+  { id: "profile", title: "Profile", icon: CircleUserRound },
+  { id: "appearance", title: "Appearance", icon: Palette },
+];
 
 const buttonVariants = {
   initial: {
@@ -85,33 +101,24 @@ const lineVariants = {
 const transition = { type: "spring", bounce: 0, duration: 0.4 };
 
 export function Toolbar({
+  items = DEFAULT_TOOLBAR_ITEMS,
+  defaultSelected = "select",
   className,
   activeColor = "text-primary",
-  onSearch,
+  onSelect,
 }: ToolbarProps) {
-  const [selected, setSelected] = React.useState<string | null>("select");
+  const [selected, setSelected] = React.useState<string | null>(
+    defaultSelected
+  );
   const [isToggled, setIsToggled] = React.useState(false);
   const [activeNotification, setActiveNotification] = React.useState<
     string | null
   >(null);
   const outsideClickRef = React.useRef(null);
 
-  const toolbarItems: ToolbarItem[] = [
-    { id: "select", title: "Select", icon: MousePointer2 },
-    { id: "move", title: "Move", icon: Move },
-    { id: "shapes", title: "Shapes", icon: Shapes },
-    { id: "layers", title: "Layers", icon: Layers },
-    { id: "frame", title: "Frame", icon: Frame },
-    { id: "properties", title: "Properties", icon: SlidersHorizontal },
-    { id: "export", title: "Export", icon: FileDown },
-    { id: "share", title: "Share", icon: Share2 },
-    { id: "notifications", title: "Notifications", icon: Bell },
-    { id: "profile", title: "Profile", icon: CircleUserRound },
-    { id: "appearance", title: "Appearance", icon: Palette },
-  ];
-
   const handleItemClick = (itemId: string) => {
     setSelected(selected === itemId ? null : itemId);
+    onSelect?.(itemId);
     setActiveNotification(itemId);
     setTimeout(() => setActiveNotification(null), 1500);
   };
@@ -132,22 +139,19 @@ export function Toolbar({
           {activeNotification && (
             <motion.div
               animate="animate"
-              className="-top-8 -translate-x-1/2 absolute left-1/2 z-50 transform"
+              className="absolute -top-8 left-1/2 z-50 -translate-x-1/2 transform"
               exit="exit"
               initial="initial"
               transition={{ duration: 0.3 }}
               variants={notificationVariants as any}
             >
               <div className="rounded-full bg-primary px-3 py-1 text-primary-foreground text-xs">
-                {
-                  toolbarItems.find((item) => item.id === activeNotification)
-                    ?.title
-                }{" "}
+                {items.find((item) => item.id === activeNotification)?.title}{" "}
                 clicked!
               </div>
               <motion.div
                 animate="animate"
-                className="-bottom-1 absolute left-1/2 h-[2px] w-full origin-left bg-primary"
+                className="absolute -bottom-1 left-1/2 h-[2px] w-full origin-left bg-primary"
                 exit="exit"
                 initial="initial"
                 variants={lineVariants as any}
@@ -157,7 +161,7 @@ export function Toolbar({
         </AnimatePresence>
 
         <div className="flex items-center gap-2">
-          {toolbarItems.map((item) => (
+          {items.map((item) => (
             <motion.button
               animate="animate"
               className={cn(

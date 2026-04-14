@@ -14,7 +14,6 @@ import { AnimatePresence, motion, type Variants } from "motion/react";
 import Image from "next/image";
 import { useRef, useState } from "react";
 
-const MAX_TEAM_SIZE = 4;
 const AVATAR_OVERLAP = 10;
 
 interface TeamMember {
@@ -23,7 +22,7 @@ interface TeamMember {
   name: string;
 }
 
-const TEAM_MEMBERS: TeamMember[] = [
+const DEFAULT_MEMBERS: TeamMember[] = [
   {
     id: "member-1",
     avatarUrl:
@@ -48,7 +47,7 @@ const TEAM_MEMBERS: TeamMember[] = [
       "https://bykuknqwpctcjrowysyf.supabase.co/storage/v1/object/public/assets/avatar-04.png",
     name: "Team Member 4",
   },
-] as const;
+];
 
 const animations = {
   container: {
@@ -91,23 +90,28 @@ const animations = {
 } as const;
 
 interface TeamSelectorProps {
+  members?: TeamMember[];
   defaultValue?: number;
   onChange?: (size: number) => void;
+  label?: string;
   className?: string;
 }
 
 export default function TeamSelector({
+  members = DEFAULT_MEMBERS,
   defaultValue = 1,
   onChange,
+  label = "Team Size",
   className = "",
 }: TeamSelectorProps) {
+  const maxTeamSize = members.length;
   const [peopleCount, setPeopleCount] = useState(defaultValue);
   const [isVibrating, setIsVibrating] = useState(false);
   const directionRef = useRef<1 | -1>(1);
 
   const handleIncrement = (e: React.MouseEvent | React.KeyboardEvent) => {
     e.preventDefault();
-    if (peopleCount < MAX_TEAM_SIZE) {
+    if (peopleCount < maxTeamSize) {
       directionRef.current = 1;
       const newCount = peopleCount + 1;
       setPeopleCount(newCount);
@@ -155,13 +159,13 @@ export default function TeamSelector({
       <div className="w-full max-w-xs rounded-2xl border border-zinc-200/80 bg-white p-6 shadow-[0_1px_4px_rgba(0,0,0,0.06)] dark:border-white/8 dark:bg-zinc-900/60">
         <fieldset>
           <legend className="mb-6 w-full font-medium text-xs text-zinc-400 uppercase tracking-widest dark:text-zinc-500">
-            Team Size
+            {label}
           </legend>
 
           {/* Avatar stack — all 4 always rendered, toggled via variants */}
           <div className="mb-8 flex justify-center">
             <motion.div className="flex items-center" layout>
-              {TEAM_MEMBERS.map((member, index) => (
+              {members.map((member, index) => (
                 <motion.div
                   animate={index < peopleCount ? "visible" : "hidden"}
                   className="flex items-center justify-center"
@@ -169,7 +173,7 @@ export default function TeamSelector({
                   key={member.id}
                   style={{
                     marginLeft: index === 0 ? 0 : -AVATAR_OVERLAP,
-                    zIndex: MAX_TEAM_SIZE - index,
+                    zIndex: maxTeamSize - index,
                   }}
                   variants={animations.avatar}
                 >
@@ -235,7 +239,7 @@ export default function TeamSelector({
             <button
               aria-label="Increase team size"
               className="flex h-9 w-9 items-center justify-center rounded-xl border border-zinc-200/80 bg-linear-to-b from-white to-zinc-50 text-zinc-500 shadow-[0_1px_3px_rgba(0,0,0,0.08)] transition-all duration-200 hover:border-zinc-300 hover:text-zinc-900 hover:shadow-[0_2px_6px_rgba(0,0,0,0.12)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-zinc-400/40 focus-visible:ring-offset-2 active:from-zinc-50 active:to-zinc-100 disabled:cursor-not-allowed disabled:opacity-35 dark:border-white/8 dark:from-zinc-800 dark:to-zinc-900 dark:text-zinc-500 dark:focus-visible:ring-zinc-500/40 dark:focus-visible:ring-offset-zinc-900 dark:hover:border-white/16 dark:hover:text-zinc-200"
-              disabled={peopleCount >= MAX_TEAM_SIZE}
+              disabled={peopleCount >= maxTeamSize}
               onClick={handleIncrement}
               onKeyDown={(e) => handleKeyDown(e, "increment")}
               type="button"

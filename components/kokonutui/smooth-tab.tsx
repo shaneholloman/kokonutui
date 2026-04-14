@@ -18,6 +18,7 @@ import { cn } from "@/lib/utils";
 interface TabItem {
   id: string;
   title: string;
+  description?: string;
   icon?: LucideIcon;
   content?: React.ReactNode;
   cardContent?: React.ReactNode;
@@ -47,206 +48,83 @@ const WaveformPath = () => (
   />
 );
 
+function TabCardContent({
+  title,
+  description,
+  fillClass,
+}: {
+  title: string;
+  description: string;
+  fillClass: string;
+}) {
+  return (
+    <div className="relative h-full">
+      <div className="absolute inset-0 overflow-hidden">
+        <svg
+          aria-hidden="true"
+          className="absolute bottom-0 h-32 w-full"
+          preserveAspectRatio="none"
+          role="presentation"
+          viewBox="0 0 420 100"
+        >
+          <motion.g
+            animate={{ opacity: 0.15 }}
+            className={`fill-${fillClass} stroke-${fillClass}`}
+            initial={{ opacity: 0 }}
+            style={{ strokeWidth: 1 }}
+            transition={{ duration: 0.5 }}
+          >
+            <WaveformPath />
+          </motion.g>
+          <motion.g
+            animate={{ opacity: 0.1 }}
+            className={`fill-${fillClass} stroke-${fillClass}`}
+            initial={{ opacity: 0 }}
+            style={{ strokeWidth: 1, transform: "translateY(10px)" }}
+            transition={{ duration: 0.5 }}
+          >
+            <WaveformPath />
+          </motion.g>
+        </svg>
+      </div>
+      <div className="relative flex h-full flex-col p-6">
+        <div className="space-y-2">
+          <h3 className="bg-gradient-to-r from-foreground via-foreground/90 to-foreground/70 font-semibold text-2xl tracking-tight [text-shadow:_0_1px_1px_rgb(0_0_0_/_10%)]">
+            {title}
+          </h3>
+          <p className="max-w-[90%] text-black/50 text-sm leading-relaxed dark:text-white/50">
+            {description}
+          </p>
+        </div>
+      </div>
+    </div>
+  );
+}
+
 const DEFAULT_TABS: TabItem[] = [
   {
     id: "Models",
     title: "Models",
+    description: "Choose the model you want to use",
     color: "bg-blue-500 hover:bg-blue-600",
-    cardContent: (
-      <div className="relative h-full">
-        <div className="absolute inset-0 overflow-hidden">
-          <svg
-            aria-hidden="true"
-            className="absolute bottom-0 h-32 w-full"
-            preserveAspectRatio="none"
-            role="presentation"
-            viewBox="0 0 420 100"
-          >
-            <motion.g
-              animate={{ opacity: 0.15 }}
-              className="fill-blue-500 stroke-blue-500"
-              initial={{ opacity: 0 }}
-              style={{ strokeWidth: 1 }}
-              transition={{ duration: 0.5 }}
-            >
-              <WaveformPath />
-            </motion.g>
-            <motion.g
-              animate={{ opacity: 0.1 }}
-              className="fill-blue-500 stroke-blue-500"
-              initial={{ opacity: 0 }}
-              style={{
-                strokeWidth: 1,
-                transform: "translateY(10px)",
-              }}
-              transition={{ duration: 0.5 }}
-            >
-              <WaveformPath />
-            </motion.g>
-          </svg>
-        </div>
-        <div className="relative flex h-full flex-col p-6">
-          <div className="space-y-2">
-            <h3 className="bg-gradient-to-r from-foreground via-foreground/90 to-foreground/70 font-semibold text-2xl tracking-tight [text-shadow:_0_1px_1px_rgb(0_0_0_/_10%)]">
-              Models
-            </h3>
-            <p className="max-w-[90%] text-black/50 text-sm leading-relaxed dark:text-white/50">
-              Choose the model you want to use
-            </p>
-          </div>
-        </div>
-      </div>
-    ),
   },
   {
     id: "MCPs",
     title: "MCPs",
+    description: "Choose the MCP you want to use",
     color: "bg-purple-500 hover:bg-purple-600",
-    cardContent: (
-      <div className="relative h-full">
-        <div className="absolute inset-0 overflow-hidden">
-          <svg
-            aria-hidden="true"
-            className="absolute bottom-0 h-32 w-full"
-            preserveAspectRatio="none"
-            role="presentation"
-            viewBox="0 0 420 100"
-          >
-            <motion.g
-              animate={{ opacity: 0.15 }}
-              className="fill-purple-500 stroke-purple-500"
-              initial={{ opacity: 0 }}
-              style={{ strokeWidth: 1 }}
-              transition={{ duration: 0.5 }}
-            >
-              <WaveformPath />
-            </motion.g>
-            <motion.g
-              animate={{ opacity: 0.1 }}
-              className="fill-purple-500 stroke-purple-500"
-              initial={{ opacity: 0 }}
-              style={{
-                strokeWidth: 1,
-                transform: "translateY(10px)",
-              }}
-              transition={{ duration: 0.5 }}
-            >
-              <WaveformPath />
-            </motion.g>
-          </svg>
-        </div>
-        <div className="relative flex h-full flex-col p-6">
-          <div className="space-y-2">
-            <h3 className="bg-gradient-to-r from-foreground via-foreground/90 to-foreground/70 font-semibold text-xl tracking-tight [text-shadow:_0_1px_1px_rgb(0_0_0_/_10%)]">
-              MCPs
-            </h3>
-            <p className="max-w-[90%] text-black/50 text-sm leading-relaxed dark:text-white/50">
-              Choose the MCP you want to use
-            </p>
-          </div>
-        </div>
-      </div>
-    ),
   },
   {
     id: "Agents",
     title: "Agents",
+    description: "Choose the agent you want to use",
     color: "bg-emerald-500 hover:bg-emerald-600",
-    cardContent: (
-      <div className="relative h-full">
-        <div className="absolute inset-0 overflow-hidden">
-          <svg
-            aria-hidden="true"
-            className="absolute bottom-0 h-32 w-full"
-            preserveAspectRatio="none"
-            role="presentation"
-            viewBox="0 0 420 100"
-          >
-            <motion.g
-              animate={{ opacity: 0.15 }}
-              className="fill-emerald-500 stroke-emerald-500"
-              initial={{ opacity: 0 }}
-              style={{ strokeWidth: 1 }}
-              transition={{ duration: 0.5 }}
-            >
-              <WaveformPath />
-            </motion.g>
-            <motion.g
-              animate={{ opacity: 0.1 }}
-              className="fill-emerald-500 stroke-emerald-500"
-              initial={{ opacity: 0 }}
-              style={{
-                strokeWidth: 1,
-                transform: "translateY(10px)",
-              }}
-              transition={{ duration: 0.5 }}
-            >
-              <WaveformPath />
-            </motion.g>
-          </svg>
-        </div>
-        <div className="relative flex h-full flex-col p-6">
-          <div className="space-y-2">
-            <h3 className="bg-gradient-to-r from-foreground via-foreground/90 to-foreground/70 font-semibold text-2xl tracking-tight [text-shadow:_0_1px_1px_rgb(0_0_0_/_10%)]">
-              Agents
-            </h3>
-            <p className="max-w-[90%] text-black/50 text-sm leading-relaxed dark:text-white/50">
-              Choose the agent you want to use
-            </p>
-          </div>
-        </div>
-      </div>
-    ),
   },
   {
     id: "Users",
     title: "Users",
+    description: "Choose the user you want to use",
     color: "bg-amber-500 hover:bg-amber-600",
-    cardContent: (
-      <div className="relative h-full">
-        <div className="absolute inset-0 overflow-hidden">
-          <svg
-            aria-hidden="true"
-            className="absolute bottom-0 h-32 w-full"
-            preserveAspectRatio="none"
-            role="presentation"
-            viewBox="0 0 420 100"
-          >
-            <motion.g
-              animate={{ opacity: 0.15 }}
-              className="fill-amber-500 stroke-amber-500"
-              initial={{ opacity: 0 }}
-              style={{ strokeWidth: 1 }}
-              transition={{ duration: 0.5 }}
-            >
-              <WaveformPath />
-            </motion.g>
-            <motion.g
-              animate={{ opacity: 0.1 }}
-              className="fill-amber-500 stroke-amber-500"
-              initial={{ opacity: 0 }}
-              style={{
-                strokeWidth: 1,
-                transform: "translateY(10px)",
-              }}
-              transition={{ duration: 0.5 }}
-            >
-              <WaveformPath />
-            </motion.g>
-          </svg>
-        </div>
-        <div className="relative flex h-full flex-col p-6">
-          <div className="space-y-2">
-            <h3 className="bg-gradient-to-r from-foreground via-foreground/90 to-foreground/70 font-semibold text-2xl tracking-tight [text-shadow:_0_1px_1px_rgb(0_0_0_/_10%)]">
-              Users
-            </h3>
-            <p className="max-w-[90%] text-black/50 text-sm leading-relaxed dark:text-white/50">
-              Choose the user you want to use
-            </p>
-          </div>
-        </div>
-      </div>
-    ),
   },
 ];
 
@@ -374,7 +252,19 @@ export default function SmoothTab({
                 transition={transition as any}
                 variants={slideVariants as any}
               >
-                {selectedItem?.cardContent}
+                {selectedItem?.cardContent ??
+                  (selectedItem && (
+                    <TabCardContent
+                      description={selectedItem.description ?? ""}
+                      fillClass={
+                        selectedItem.color
+                          .split(" ")
+                          .at(0)
+                          ?.replace("bg-", "") ?? "blue-500"
+                      }
+                      title={selectedItem.title}
+                    />
+                  ))}
               </motion.div>
             </AnimatePresence>
           </div>

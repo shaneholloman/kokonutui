@@ -38,7 +38,10 @@ https://kokonutui.com/docs/components/beams-background
 https://kokonutui.com/docs/components/bento-grid
 
 **Card Flip** - Animated flip card with gradient button and animation.
-https://kokonutui.com/docs/components/card
+https://kokonutui.com/docs/components/card-flip
+
+**Carousel Cards** - Horizontal scroll carousel with card navigation, ratings, and smooth scroll controls.
+https://kokonutui.com/docs/components/carousel-cards
 
 **Command Button** - Command button for shortcut.
 https://kokonutui.com/docs/components/command-button
@@ -131,7 +134,7 @@ https://kokonutui.com/docs/components/team-selector
 https://kokonutui.com/docs/components/toolbar
 
 **Typing Text** - Animated TypeWritter with multiples options.
-https://kokonutui.com/docs/components/typewriter
+https://kokonutui.com/docs/components/type-writer
 
 **V0 Button** - Open in V0.
 https://kokonutui.com/docs/components/v0-button

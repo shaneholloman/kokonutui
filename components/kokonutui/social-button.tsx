@@ -10,28 +10,46 @@
  * @github: https://github.com/kokonut-labs/kokonutui
  */
 
+import type { LucideIcon } from "lucide-react";
 import { Instagram, Link, Linkedin, Twitter } from "lucide-react";
 import { motion } from "motion/react";
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 
+interface ShareItem {
+  icon: LucideIcon;
+  label: string;
+}
+
+interface SocialButtonProps
+  extends React.ButtonHTMLAttributes<HTMLButtonElement> {
+  label?: string;
+  items?: ShareItem[];
+  onShare?: (index: number, item: ShareItem) => void;
+  className?: string;
+}
+
+const DEFAULT_SHARE_ITEMS: ShareItem[] = [
+  { icon: Twitter, label: "Share on Twitter" },
+  { icon: Instagram, label: "Share on Instagram" },
+  { icon: Linkedin, label: "Share on LinkedIn" },
+  { icon: Link, label: "Copy link" },
+];
+
 export default function SocialButton({
+  label = "Share",
+  items = DEFAULT_SHARE_ITEMS,
+  onShare,
   className,
   ...props
-}: React.ButtonHTMLAttributes<HTMLButtonElement>) {
+}: SocialButtonProps) {
   const [isVisible, setIsVisible] = useState(false);
   const [activeIndex, setActiveIndex] = useState<number | null>(null);
 
-  const shareButtons = [
-    { icon: Twitter, label: "Share on Twitter" },
-    { icon: Instagram, label: "Share on Instagram" },
-    { icon: Linkedin, label: "Share on LinkedIn" },
-    { icon: Link, label: "Copy link" },
-  ];
-
   const handleShare = (index: number) => {
     setActiveIndex(index);
+    onShare?.(index, items[index]);
     setTimeout(() => setActiveIndex(null), 300);
   };
 
@@ -64,7 +82,7 @@ export default function SocialButton({
         >
           <span className="flex items-center gap-2">
             <Link className="h-4 w-4" />
-            Hover me
+            {label}
           </span>
         </Button>
       </motion.div>
@@ -79,7 +97,7 @@ export default function SocialButton({
           ease: [0.23, 1, 0.32, 1],
         }}
       >
-        {shareButtons.map((button, i) => (
+        {items.map((button, i) => (
           <motion.button
             animate={{
               opacity: isVisible ? 1 : 0,
@@ -93,7 +111,7 @@ export default function SocialButton({
               "bg-black dark:bg-white",
               "text-white dark:text-black",
               i === 0 && "rounded-l-md",
-              i === 3 && "rounded-r-md",
+              i === items.length - 1 && "rounded-r-md",
               "border-white/10 border-r last:border-r-0 dark:border-black/10",
               "hover:bg-gray-900 dark:hover:bg-gray-100",
               "outline-none",

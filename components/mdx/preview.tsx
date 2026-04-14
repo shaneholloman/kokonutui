@@ -1,7 +1,7 @@
-import { cn } from "@/lib/utils";
-import PreviewContent from "./preview-content";
 import { Suspense } from "react";
+import { cn } from "@/lib/utils";
 import Loader from "../kokonutui/loader";
+import PreviewContent from "./preview-content";
 
 type PreviewProps = {
   children: React.ReactNode;
@@ -52,9 +52,7 @@ export function Preview({
             isBlock ? "md:p-0" : ""
           )}
         >
-          <Suspense fallback={<Loader />}>
-          {children}
-          </Suspense>
+          <Suspense fallback={<Loader />}>{children}</Suspense>
         </div>
       )}
       {comment.length > 0 && (

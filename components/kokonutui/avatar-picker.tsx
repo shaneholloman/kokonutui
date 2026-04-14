@@ -10,10 +10,10 @@
  * @github: https://github.com/kokonut-labs/kokonutui
  */
 
-import type { Variants } from "motion/react";
-import type { ReactNode } from "react";
 import { Check, ChevronRight, User2 } from "lucide-react";
+import type { Variants } from "motion/react";
 import { AnimatePresence, motion, useReducedMotion } from "motion/react";
+import type { ReactNode } from "react";
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
@@ -387,11 +387,11 @@ export default function ProfileSetup({
               <div className="relative h-full w-full overflow-hidden rounded-full">
                 <AnimatePresence mode="wait">
                   <motion.div
-                    key={selectedAvatar.id}
                     animate={{ opacity: 1 }}
                     className="absolute inset-0 flex items-center justify-center"
                     exit={{ opacity: 0 }}
                     initial={{ opacity: 0 }}
+                    key={selectedAvatar.id}
                     transition={
                       shouldReduceMotion
                         ? { duration: 0 }
@@ -411,7 +411,7 @@ export default function ProfileSetup({
             <AnimatePresence mode="wait">
               <motion.span
                 animate={{ opacity: 1 }}
-                className="text-[11px] tracking-[0.12em] text-muted-foreground uppercase"
+                className="text-[11px] text-muted-foreground uppercase tracking-[0.12em]"
                 exit={{ opacity: 0 }}
                 initial={{ opacity: 0 }}
                 key={selectedAvatar.id}
@@ -509,7 +509,7 @@ export default function ProfileSetup({
                 <User2
                   aria-hidden="true"
                   className={cn(
-                    "absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 transition-colors duration-200 ease-out",
+                    "absolute top-1/2 left-3 h-4 w-4 -translate-y-1/2 transition-colors duration-200 ease-out",
                     isFocused ? "text-foreground" : "text-muted-foreground"
                   )}
                 />
@@ -519,7 +519,7 @@ export default function ProfileSetup({
                 {showError && (
                   <motion.p
                     animate={{ opacity: 1, y: 0 }}
-                    className="ml-0.5 text-xs text-destructive"
+                    className="ml-0.5 text-destructive text-xs"
                     exit={{ opacity: 0, y: -4 }}
                     initial={{ opacity: 0, y: -4 }}
                     role="alert"

@@ -1,5 +1,5 @@
-import HowItWorks from "@/components/landing/how-it-works";
 import { HeroSection } from "@/components/landing/hero";
+import HowItWorks from "@/components/landing/how-it-works";
 import ProSection from "@/components/landing/pro-section";
 import StatsBar from "@/components/landing/stats-bar";
 import TestimonialsSection from "@/components/landing/testimonials";

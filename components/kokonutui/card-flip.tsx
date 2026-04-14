@@ -98,7 +98,7 @@ export default function CardFlip({
                     "bg-gradient-to-br from-orange-500/20 via-orange-500/10 to-transparent"
                   )}
                 />
-                <Repeat2 className="group-hover/icon:-rotate-12 relative z-10 h-4 w-4 text-orange-500 transition-transform duration-300 group-hover/icon:scale-110" />
+                <Repeat2 className="relative z-10 h-4 w-4 text-orange-500 transition-transform duration-300 group-hover/icon:-rotate-12 group-hover/icon:scale-110" />
               </div>
             </div>
           </div>

@@ -35,7 +35,7 @@ const SlicedText: React.FC<SlicedTextProps> = ({
     whileHover="hover"
   >
     <motion.div
-      className={cn("-ml-0.5 absolute w-full text-4xl", className)}
+      className={cn("absolute -ml-0.5 w-full text-4xl", className)}
       transition={{ duration: 0.1 }}
       variants={{
         default: {

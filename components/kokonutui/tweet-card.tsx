@@ -22,13 +22,15 @@ type ReplyProps = {
 };
 
 type TweetCardProps = {
-  authorName: string;
-  authorHandle: string;
-  authorImage: string;
-  content: string[];
+  authorName?: string;
+  authorHandle?: string;
+  authorImage?: string;
+  content?: string[];
   isVerified?: boolean;
-  timestamp: string;
+  timestamp?: string;
+  href?: string;
   reply?: ReplyProps;
+  className?: string;
 };
 
 export default function TweetCard({
@@ -43,6 +45,7 @@ export default function TweetCard({
   ],
   isVerified = true,
   timestamp = "Jan 18, 2025",
+  href = "#",
   reply = {
     authorName: "shadcn",
     authorHandle: "shadcn",
@@ -52,12 +55,10 @@ export default function TweetCard({
     isVerified: true,
     timestamp: "Jan 18",
   },
+  className,
 }: TweetCardProps) {
   return (
-    <Link
-      href="https://x.com/dorianbaffier/status/1880291036410572934"
-      target="_blank"
-    >
+    <Link href={href} target="_blank">
       <div
         className={cn(
           "relative isolate w-full min-w-[400px] max-w-xl overflow-hidden rounded-2xl p-1.5 md:min-w-[500px]",

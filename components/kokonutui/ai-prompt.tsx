@@ -58,21 +58,39 @@ const OPENAI_SVG = (
   </div>
 );
 
-export default function AI_Prompt() {
+interface AIPromptProps {
+  models?: string[];
+  defaultModel?: string;
+  placeholder?: string;
+  headerText?: string;
+  headerAction?: string;
+  onSubmit?: (value: string, model: string) => void;
+  className?: string;
+}
+
+const DEFAULT_MODELS = [
+  "Gemini 3",
+  "GPT-5-mini",
+  "Claude 4.5 Sonnet",
+  "GPT-5-1 Mini",
+  "GPT-5-1",
+];
+
+export default function AI_Prompt({
+  models = DEFAULT_MODELS,
+  defaultModel = "Claude 4.5 Sonnet",
+  placeholder = "What can I do for you?",
+  headerText = "is free this weekend!",
+  headerAction = "Ship Now!",
+  onSubmit,
+  className,
+}: AIPromptProps) {
   const [value, setValue] = useState("");
   const { textareaRef, adjustHeight } = useAutoResizeTextarea({
     minHeight: 72,
     maxHeight: 300,
   });
-  const [selectedModel, setSelectedModel] = useState("Claude 4.5 Sonnet");
-
-  const AI_MODELS = [
-    "Gemini 3",
-    "GPT-5-mini",
-    "Claude 4.5 Sonnet",
-    "GPT-5-1 Mini",
-    "GPT-5-1",
-  ];
+  const [selectedModel, setSelectedModel] = useState(defaultModel);
 
   const MODEL_ICONS: Record<string, React.ReactNode> = {
     "GPT-5-mini": OPENAI_SVG,
@@ -139,24 +157,25 @@ export default function AI_Prompt() {
   const handleKeyDown = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
     if (e.key === "Enter" && !e.shiftKey) {
       e.preventDefault();
+      onSubmit?.(value, selectedModel);
       setValue("");
       adjustHeight(true);
     }
   };
 
   return (
-    <div className="w-4/6 py-4">
+    <div className={cn("w-4/6 py-4", className)}>
       <div className="rounded-2xl bg-black/5 p-1.5 pt-4 dark:bg-white/5">
         <div className="mx-2 mb-2.5 flex items-center gap-2">
           <div className="flex flex-1 items-center gap-2">
             <Anthropic className="h-3.5 w-3.5 text-black dark:hidden" />
             <AnthropicDark className="hidden h-3.5 w-3.5 dark:block" />
             <h3 className="text-black text-xs tracking-tighter dark:text-white/90">
-              is free this weekend!
+              {headerText}
             </h3>
           </div>
           <p className="text-black text-xs tracking-tighter dark:text-white/90">
-            Ship Now!
+            {headerAction}
           </p>
         </div>
         <div className="relative">
@@ -173,7 +192,7 @@ export default function AI_Prompt() {
                   adjustHeight();
                 }}
                 onKeyDown={handleKeyDown}
-                placeholder={"What can I do for you?"}
+                placeholder={placeholder}
                 ref={textareaRef}
                 value={value}
               />
@@ -222,7 +241,7 @@ export default function AI_Prompt() {
                         "bg-gradient-to-b from-white via-white to-neutral-100 dark:from-neutral-950 dark:via-neutral-900 dark:to-neutral-800"
                       )}
                     >
-                      {AI_MODELS.map((model) => (
+                      {models.map((model) => (
                         <DropdownMenuItem
                           className="flex items-center justify-between gap-2"
                           key={model}

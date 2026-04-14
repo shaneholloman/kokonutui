@@ -1,20 +1,20 @@
 const ShadcnIcon = (props: React.SVGProps<SVGSVGElement>) => (
-    <svg
-        xmlns="http://www.w3.org/2000/svg"
-        viewBox="0 0 256 256"
-        width="1em"
-        height="1em"
-        {...props}
-    >
-        <title>Shadcn UI</title>
-        <path fill="none" d="M0 0h256v256H0z" />
-        <path
-            fill="none"
-            stroke="currentColor"
-            strokeWidth={25}
-            strokeLinecap="round"
-            d="M208 128l-80 80M192 40L40 192"
-        />
-    </svg>
+  <svg
+    height="1em"
+    viewBox="0 0 256 256"
+    width="1em"
+    xmlns="http://www.w3.org/2000/svg"
+    {...props}
+  >
+    <title>Shadcn UI</title>
+    <path d="M0 0h256v256H0z" fill="none" />
+    <path
+      d="M208 128l-80 80M192 40L40 192"
+      fill="none"
+      stroke="currentColor"
+      strokeLinecap="round"
+      strokeWidth={25}
+    />
+  </svg>
 );
 export default ShadcnIcon;

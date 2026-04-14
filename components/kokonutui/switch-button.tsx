@@ -112,7 +112,7 @@ export default function SwitchButton({
               Light
               <span
                 className={cn(
-                  "-bottom-px absolute left-0 h-px w-full",
+                  "absolute -bottom-px left-0 h-px w-full",
                   "bg-linear-to-r from-zinc-400/0 via-zinc-400/50 to-zinc-400/0",
                   "dark:from-zinc-600/0 dark:via-zinc-600/50 dark:to-zinc-600/0",
                   "opacity-0 group-hover:opacity-100",
@@ -130,7 +130,7 @@ export default function SwitchButton({
               Dark
               <span
                 className={cn(
-                  "-bottom-px absolute left-0 h-px w-full",
+                  "absolute -bottom-px left-0 h-px w-full",
                   "bg-linear-to-r from-zinc-400/0 via-zinc-400/50 to-zinc-400/0",
                   "dark:from-zinc-600/0 dark:via-zinc-600/50 dark:to-zinc-600/0",
                   "opacity-0 group-hover:opacity-100",

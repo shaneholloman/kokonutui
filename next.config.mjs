@@ -55,7 +55,12 @@ const nextConfig = {
       // Cards
       {
         source: "/docs/components/card",
-        destination: "/docs/cards/card",
+        destination: "/docs/cards/card-flip",
+        permanent: true,
+      },
+      {
+        source: "/docs/cards/card",
+        destination: "/docs/cards/card-flip",
         permanent: true,
       },
       {
@@ -196,7 +201,12 @@ const nextConfig = {
       },
       {
         source: "/docs/components/typewriter",
-        destination: "/docs/texts/typewriter",
+        destination: "/docs/texts/type-writer",
+        permanent: true,
+      },
+      {
+        source: "/docs/texts/typewriter",
+        destination: "/docs/texts/type-writer",
         permanent: true,
       },
       {
